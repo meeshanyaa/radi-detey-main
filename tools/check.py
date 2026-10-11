@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 """Проверка страницы по разделу 9 STANDARD.md: ширины, прокрутка вбок, axe (WCAG 2.2 A/AA),
-консоль, фокус, форма. Запуск: python3 check.py <base_url> <out_dir>"""
+консоль, фокус, форма. Запуск: python3 check.py <base_url> <out_dir>
+Нужны Python Playwright с Chromium и axe-core в tools/node_modules (npm install axe-core в папке tools)."""
 import json
 import sys
 import os
