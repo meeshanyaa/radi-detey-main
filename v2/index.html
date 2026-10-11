@@ -1,0 +1,251 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>РАДИ ДЕТЕЙ — организация родителей детей-инвалидов, Екатеринбург</title>
+  <meta name="description" content="Учебный прототип главной страницы СРОО «РАДИ ДЕТЕЙ», Екатеринбург: организация родителей детей-инвалидов. Форма «Задать вопрос».">
+  <meta name="robots" content="noindex">
+  <link rel="icon" href="data:,">
+  <link rel="preload" href="fonts/golos-cyrillic.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="fonts/golos-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="styles.css">
+  <script>document.documentElement.classList.add('js');</script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Перейти к содержимому</a>
+  <svg class="sprite" id="sprite" width="0" height="0" aria-hidden="true" focusable="false">
+    <symbol id="i-phone" viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></symbol>
+    <symbol id="i-menu" viewBox="0 0 24 24"><path d="M3 6h18M3 12h18M3 18h18"/></symbol>
+    <symbol id="i-close" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></symbol>
+    <symbol id="i-image" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></symbol>
+    <symbol id="i-alert" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 8v4M12 16h.01"/></symbol>
+    <symbol id="i-check-circle" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M8 12.5l3 3 5-6"/></symbol>
+    <symbol id="i-info" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></symbol>
+    <symbol id="i-check" viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></symbol>
+  </svg>
+
+  <header class="site-header">
+    <div class="container site-header__bar">
+      <span class="logo">РАДИ ДЕТЕЙ</span>
+      <a class="icon-btn site-header__call" href="tel:+70000000000" aria-label="Позвонить">
+        <svg class="icon" aria-hidden="true"><use href="#i-phone"/></svg>
+      </a>
+      <button class="icon-btn menu-btn" type="button" aria-label="Меню" aria-expanded="false" aria-controls="site-nav">
+        <svg class="icon icon-open" aria-hidden="true"><use href="#i-menu"/></svg>
+        <svg class="icon icon-close" aria-hidden="true"><use href="#i-close"/></svg>
+      </button>
+      <nav class="site-nav" id="site-nav" aria-label="Разделы страницы">
+        <ul>
+          <li><a href="#events">Мероприятия</a></li>
+          <li><a href="#masterclasses">Мастер-классы</a></li>
+          <li><a href="#news">Новости</a></li>
+          <li><a class="nav-accent" href="#help">Как помочь</a></li>
+          <li><a href="#question">Задать вопрос</a></li>
+          <li><a href="#contacts">Контакты</a></li>
+          <li class="site-nav__vk">
+            <a class="vk-link" href="https://vk.com/sroo_radi_detey" target="_blank" rel="noopener noreferrer">
+              <span class="mark-box" aria-hidden="true">ВК</span>
+              <span class="vk-link__label">ВКонтакте</span>
+              <span class="visually-hidden"> (откроется в новой вкладке)</span>
+            </a>
+          </li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+    <div class="container hero grid">
+      <div class="hero__text">
+        <h1>Общественная организация родителей <span class="nowrap">детей-инвалидов</span> «РАДИ&nbsp;ДЕТЕЙ»</h1>
+        <p class="hero__lead">Поддержка семей, в которых растут дети с ОВЗ, дети-инвалиды и инвалиды с детства</p>
+        <div class="hero__actions">
+          <a class="btn btn--primary" href="#question">Задать вопрос</a>
+          <a class="btn btn--secondary" href="#masterclasses">Мастер-классы дома</a>
+        </div>
+      </div>
+      <div class="hero__photo">
+        <!-- Когда появится фото, заменить заглушку на picture: WebP, запасной JPEG, width и height, alt по смыслу:
+        <picture>
+          <source type="image/webp" srcset="img/hero.webp">
+          <img src="img/hero.jpg" width="1200" height="900" alt="Что на фото">
+        </picture> -->
+        <div class="photo-ph">
+          <svg class="icon" aria-hidden="true"><use href="#i-image"/></svg>
+          <span>Фото с мероприятия</span>
+        </div>
+      </div>
+    </div>
+
+    <section class="container section" id="events" aria-labelledby="events-title">
+      <div class="section__head">
+        <h2 id="events-title">Ближайшие мероприятия</h2>
+      </div>
+      <div class="empty">
+        <p>Ближайших мероприятий пока нет</p>
+        <p><a href="https://vk.com/sroo_radi_detey" target="_blank" rel="noopener noreferrer">Сообщество организации во ВКонтакте<span class="visually-hidden"> (откроется в новой вкладке)</span></a></p>
+      </div>
+    </section>
+
+    <section class="container section" id="masterclasses" aria-labelledby="masterclasses-title">
+      <div class="section__head">
+        <h2 id="masterclasses-title">Мастер-классы дома</h2>
+      </div>
+      <p class="section__intro">Очные мастер-классы организация проводит по воскресеньям. На сайте мастер-классы можно проходить бесплатно и без регистрации.</p>
+      <ul class="cards">
+        <li class="card">
+          <div class="photo-ph" aria-hidden="true">
+            <svg class="icon" aria-hidden="true"><use href="#i-image"/></svg>
+          </div>
+          <p class="card__label">Пример</p>
+          <h3>Аппликация из цветной бумаги</h3>
+          <p class="card__meta">Этапов: 5, есть задания</p>
+          <div class="card__actions">
+            <button class="btn btn--secondary" type="button" disabled aria-describedby="masterclass-soon">Начать</button>
+            <span class="small" id="masterclass-soon">Скоро на сайте</span>
+          </div>
+        </li>
+      </ul>
+    </section>
+
+    <div class="container grid split">
+      <section class="news" id="news" aria-labelledby="news-title">
+        <div class="section__head">
+          <h2 id="news-title">Новости</h2>
+          <a class="link-all link-all--head" href="http://deti-invalid.ru/category/news/">Все новости</a>
+        </div>
+        <ul class="news-list">
+          <li class="news-item">
+            <time class="news-item__date small" datetime="2026-06-20">20.06.2026</time>
+            <a class="news-item__link" href="http://deti-invalid.ru/news/%d0%b4%d0%b5%d0%bd%d1%8c-%d0%bf%d0%be%d0%bb%d0%bd%d1%8b%d0%b9-%d0%be%d1%82%d0%ba%d1%80%d1%8b%d1%82%d0%b8%d0%b9-%d0%bf%d0%be%d0%b5%d0%b7%d0%b4%d0%ba%d0%b0-%d0%b2-%d0%b5%d0%ba%d0%b0%d1%82%d0%b5%d1%80/">День, полный открытий: поездка в Екатеринбургский зоопарк</a>
+          </li>
+          <li class="news-item">
+            <time class="news-item__date small" datetime="2026-06-02">02.06.2026</time>
+            <a class="news-item__link" href="http://deti-invalid.ru/news/more-ulybok-radosti-i-syurprizov-v-den-zashhity-detej/">Море улыбок, радости и сюрпризов в День защиты детей!</a>
+          </li>
+          <li class="news-item">
+            <time class="news-item__date small" datetime="2026-03-03">03.03.2026</time>
+            <a class="news-item__link" href="http://deti-invalid.ru/news/vesna-nachalas-s-prazdnika/">Весна началась с праздника!</a>
+          </li>
+        </ul>
+        <a class="link-all link-all--foot" href="http://deti-invalid.ru/category/news/">Все новости</a>
+      </section>
+      <section class="about" id="about" aria-labelledby="about-title">
+        <h2 id="about-title">Об организации</h2>
+        <p>СРОО «РАДИ ДЕТЕЙ» объединяет семьи, в которых растут дети с ОВЗ, дети-инвалиды и инвалиды с детства. Организация объединяет родителей детей с самыми разными заболеваниями, помогает с лекарствами и оплатой реабилитации, устраивает праздники, выходы в театры и на экскурсии и консультирует родителей.</p>
+        <p class="about__more"><a href="http://deti-invalid.ru/about/">О нас</a></p>
+        <h3 id="help">Как помочь</h3>
+        <ul class="about__links">
+          <li><a href="http://deti-invalid.ru/rekvizity/">Реквизиты</a></li>
+          <li><a href="http://deti-invalid.ru/finansovye-otchyoty/">Финансовые отчёты</a></li>
+        </ul>
+        <a class="btn btn--primary" href="http://deti-invalid.ru/help/">Все способы помочь</a>
+      </section>
+    </div>
+
+    <section class="container section grid" id="question" aria-labelledby="question-title">
+      <div class="question__inner">
+        <div class="section__head">
+          <h2 id="question-title">Задать вопрос</h2>
+        </div>
+        <p>Напишите, что вы хотите узнать об организации, и укажите, как с вами связаться.</p>
+        <p><strong>Учебный прототип:</strong> вопросы получает команда проекта УрФУ, а не организация. Сведения о здоровье не указывайте.</p>
+        <form class="form" id="question-form" method="post" action="#question" novalidate>
+          <div class="field">
+            <div class="field__top">
+              <label for="q-name">Имя</label>
+              <span class="field__req" aria-hidden="true">обязательно</span>
+            </div>
+            <input class="control" type="text" id="q-name" name="name" autocomplete="name" maxlength="100" required aria-describedby="q-name-error">
+            <p class="error" id="q-name-error" hidden><svg class="icon" aria-hidden="true"><use href="#i-alert"/></svg><span class="error__text"></span></p>
+          </div>
+          <fieldset class="group" id="q-contacts" aria-describedby="q-contacts-hint">
+            <legend class="field__label">Как с вами связаться</legend>
+            <div class="group__body">
+              <p class="field__hint" id="q-contacts-hint">Укажите e-mail, телефон или оба</p>
+              <div class="group__fields">
+                <div class="field">
+                  <div class="field__top"><label for="q-email">E-mail</label></div>
+                  <input class="control" type="email" id="q-email" name="email" autocomplete="email" autocapitalize="off" spellcheck="false" maxlength="254" aria-describedby="q-email-error q-contacts-error">
+                  <p class="error" id="q-email-error" hidden><svg class="icon" aria-hidden="true"><use href="#i-alert"/></svg><span class="error__text"></span></p>
+                </div>
+                <div class="field">
+                  <div class="field__top"><label for="q-phone">Телефон</label></div>
+                  <input class="control" type="tel" id="q-phone" name="phone" autocomplete="tel" inputmode="tel" maxlength="30" aria-describedby="q-phone-error q-contacts-error">
+                  <p class="error" id="q-phone-error" hidden><svg class="icon" aria-hidden="true"><use href="#i-alert"/></svg><span class="error__text"></span></p>
+                </div>
+              </div>
+              <p class="error" id="q-contacts-error" hidden><svg class="icon" aria-hidden="true"><use href="#i-alert"/></svg><span class="error__text"></span></p>
+            </div>
+          </fieldset>
+          <div class="field">
+            <div class="field__top">
+              <label for="q-question">Вопрос</label>
+              <span class="field__req" aria-hidden="true">обязательно</span>
+            </div>
+            <p class="field__hint" id="q-question-hint">До 1000 знаков</p>
+            <textarea class="control" id="q-question" name="message" rows="4" required aria-describedby="q-question-hint q-question-error"></textarea>
+            <p class="error" id="q-question-error" hidden><svg class="icon" aria-hidden="true"><use href="#i-alert"/></svg><span class="error__text"></span></p>
+          </div>
+          <div class="field consent">
+            <div class="check">
+              <input class="check__input" type="checkbox" id="q-consent" name="consent" value="да" required aria-describedby="q-consent-error q-consent-note">
+              <span class="check__box" aria-hidden="true"><svg class="icon"><use href="#i-check"/></svg></span>
+              <label class="check__label" for="q-consent">Даю согласие на обработку персональных данных <span class="field__req" aria-hidden="true">обязательно</span></label>
+            </div>
+            <p class="error" id="q-consent-error" hidden><svg class="icon" aria-hidden="true"><use href="#i-alert"/></svg><span class="error__text"></span></p>
+            <p class="consent__more"><a href="#q-consent-note" id="q-consent-link" aria-controls="q-consent-note">Пояснение к согласию</a></p>
+            <p class="consent__note" id="q-consent-note">Вопросы получает команда учебного проекта УрФУ, а не организация. Данные нужны только для проверки формы и удаляются после занятия.</p>
+          </div>
+          <div class="hp" aria-hidden="true">
+            <label for="q-website">Сайт</label>
+            <input type="text" id="q-website" name="website" tabindex="-1" autocomplete="off">
+          </div>
+          <div class="form__actions">
+            <button class="btn btn--primary" type="submit" id="q-submit" disabled>Отправить</button>
+            <div class="status" id="q-status" role="status" aria-live="polite" aria-atomic="true"></div>
+          </div>
+          <noscript>
+            <p class="error"><svg class="icon" aria-hidden="true"><use href="#i-alert"/></svg><span>Чтобы отправить вопрос, включите JavaScript в браузере.</span></p>
+          </noscript>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer__cols">
+        <div id="contacts">
+          <h2>Контакты</h2>
+          <ul>
+            <li>Телефон: <a href="tel:+70000000000">+7 000 000-00-00</a></li>
+            <li>Почта: <a href="mailto:info@example.org">info@example.org</a></li>
+          </ul>
+        </div>
+        <div>
+          <h2>Документы</h2>
+          <ul>
+            <li><a href="http://deti-invalid.ru/about/">Устав</a></li>
+            <li><a href="http://deti-invalid.ru/finansovye-otchyoty/">Финансовые отчёты</a></li>
+            <li><a href="http://deti-invalid.ru/politika-obrabotki-personalnyx-dannyx/">Политика обработки персональных данных</a></li>
+          </ul>
+        </div>
+        <div>
+          <h2>Сообщество</h2>
+          <ul>
+            <li><a href="https://vk.com/sroo_radi_detey" target="_blank" rel="noopener noreferrer">ВКонтакте<span class="visually-hidden"> (откроется в новой вкладке)</span></a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer__bottom">
+        <p>© СРОО «РАДИ ДЕТЕЙ»</p>
+        <p>Учебный прототип. Не официальный сайт организации</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="script.js" defer></script>
+</body>
+</html>

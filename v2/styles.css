@@ -1,0 +1,430 @@
+/* СРОО «РАДИ ДЕТЕЙ», главная. Стандарт: STANDARD.md (версия 1).
+   Вёрстка от телефона к компьютеру. Цвета только через переменные :root (раздел 4),
+   кегли из раздела 3, отступы из раздела 2. Порядок файла: основа, кнопки, шапка,
+   первый экран, раздел и карточки, «Об организации», форма, подвал. */
+
+@font-face {
+  font-family: "Golos Text";
+  src: url("fonts/golos-cyrillic.woff2") format("woff2");
+  font-weight: 400 700;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+}
+@font-face {
+  font-family: "Golos Text";
+  src: url("fonts/golos-latin.woff2") format("woff2");
+  font-weight: 400 700;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+:root {
+  /* Цвета: имена как в коллекции Tokens в Figma */
+  --main: #0A6C74;
+  --main-dark: #07535A;
+  --accent: #A85300;
+  --text: #1E2A32;
+  --text-muted: #4B5B66;
+  --border: #7D8E97;
+  --surface: #F4F7F7;
+  --line: #DCE3E5;
+  --success: #1B7A3A;
+  --success-bg: #E9F5EE;
+  --error: #B42318;
+  --error-bg: #FBEDEC;
+  --disabled-bg: #E6EBEC;
+  --disabled-text: #5F6E77;
+  --white: #FFFFFF;
+
+  /* Отступы (переменные space) */
+  --space-4: 4px;
+  --space-8: 8px;
+  --space-12: 12px;
+  --space-16: 16px;
+  --space-24: 24px;
+  --space-32: 32px;
+  --space-48: 48px;
+
+  /* Скругления */
+  --radius-button: 24px;
+  --radius-card: 20px;
+  --radius-photo: 16px;
+  --radius-field: 14px;
+  --radius-check: 4px;
+
+  /* Сетка: до 767 px 4 колонки, 768-1279 px 8 колонок, от 1280 px 12 колонок */
+  --page-margin: var(--space-16);
+  --gutter: var(--space-16);
+
+  /* Типографика, телефон */
+  --font: "Golos Text", Arial, sans-serif;
+  --fs-h1: 1.875rem;
+  --lh-h1: 2.375rem;
+  --fs-h2: 1.25rem;
+  --lh-h2: 1.75rem;
+  --fs-h3: 1rem;
+  --lh-h3: 1.5rem;
+  --fs-text: 1rem;
+  --lh-text: 1.5rem;
+  --fs-small: 0.875rem;
+  --lh-small: 1.25rem;
+  --fs-logo: 1.1875rem;
+  --lh-logo: 1.5rem;
+}
+@media (min-width: 768px) {
+  :root { --page-margin: var(--space-32); --gutter: var(--space-24); }
+}
+@media (min-width: 1024px) {
+  :root {
+    --fs-h1: 2.5rem; --lh-h1: 3rem;
+    --fs-h2: 1.5rem; --lh-h2: 2rem;
+    --fs-h3: 1.125rem; --lh-h3: 1.75rem;
+    --fs-text: 1.125rem; --lh-text: 1.75rem;
+    --fs-logo: 1.625rem; --lh-logo: 2rem;
+  }
+}
+@media (min-width: 1280px) {
+  :root { --gutter: var(--space-48); }
+}
+
+/* Основа */
+*, *::before, *::after { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
+@media (prefers-reduced-motion: no-preference) {
+  html { scroll-behavior: smooth; }
+}
+body {
+  margin: 0;
+  background: var(--white);
+  color: var(--text);
+  font: 400 var(--fs-text)/var(--lh-text) var(--font);
+  overflow-wrap: anywhere;
+}
+h1, h2, h3, p, ul, ol, figure, fieldset, legend { margin: 0; padding: 0; }
+ul, ol { list-style: none; }
+img, svg { display: block; max-width: 100%; }
+button, input, textarea { font: inherit; color: inherit; }
+p { max-width: 66ch; }
+h1 { font-size: var(--fs-h1); line-height: var(--lh-h1); font-weight: 600; }
+h2, .h2 { font-size: var(--fs-h2); line-height: var(--lh-h2); font-weight: 600; }
+h3, .h3 { font-size: var(--fs-h3); line-height: var(--lh-h3); font-weight: 600; }
+.small { font-size: var(--fs-small); line-height: var(--lh-small); }
+.muted { color: var(--text-muted); }
+@media (min-width: 360px) {
+  .nowrap { white-space: nowrap; }
+}
+
+/* Ссылки подчёркнуты; наведение только при hover: hover */
+a {
+  color: var(--main);
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+}
+@media (hover: hover) {
+  a:hover { color: var(--main-dark); text-decoration-thickness: 2px; }
+}
+a:active { color: var(--main-dark); text-decoration-thickness: 2px; }
+/* Отдельно стоящие ссылки: область нажатия не ниже строки текста, то есть от 24 px */
+.empty a, .link-all, .news-item__link, .about a, .consent__more a, .footer__cols a { display: inline-block; }
+.about .btn { display: inline-flex; }
+
+/* Кольцо фокуса у любого элемента, на который можно перейти клавишей Tab */
+:focus-visible { outline: 3px solid var(--main-dark); outline-offset: 2px; }
+
+.visually-hidden {
+  position: absolute; width: 1px; height: 1px; margin: -1px; padding: 0;
+  overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0;
+}
+.skip-link {
+  position: absolute; left: var(--space-16); top: var(--space-8); z-index: 10;
+  padding: var(--space-12) var(--space-16);
+  background: var(--white); border: 2px solid var(--main); border-radius: var(--radius-button);
+  font-weight: 600; transform: translateY(-300%);
+}
+.skip-link:focus { transform: none; }
+
+/* Контейнер до 1440 px по центру и сетка */
+.container { width: 100%; max-width: 1440px; margin-inline: auto; padding-inline: var(--page-margin); }
+.grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); column-gap: var(--gutter); }
+@media (min-width: 768px) { .grid { grid-template-columns: repeat(8, minmax(0, 1fr)); } }
+@media (min-width: 1280px) { .grid { grid-template-columns: repeat(12, minmax(0, 1fr)); } }
+
+/* Значки: встроенный SVG (спрайт в начале body), цвет от текста */
+.sprite { position: absolute; width: 0; height: 0; overflow: hidden; }
+.icon {
+  width: 24px; height: 24px; flex: none;
+  fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round;
+}
+
+/* 5.2 Кнопка: высота 48 px, скругление 24 px */
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: var(--space-8);
+  min-height: 48px; padding: var(--space-8) var(--space-24);
+  border: 2px solid transparent; border-radius: var(--radius-button);
+  font: 600 var(--fs-text)/var(--lh-text) var(--font);
+  text-align: center; text-decoration: none; cursor: pointer;
+}
+.btn--primary { background: var(--main); border-color: var(--main); color: var(--white); }
+.btn--secondary { background: var(--white); border-color: var(--main); color: var(--main); }
+.btn--primary:not(:disabled):active {
+  background: var(--main-dark); border-color: var(--main-dark); color: var(--white);
+}
+.btn--secondary:not(:disabled):active {
+  background: var(--surface); border-color: var(--main-dark); color: var(--main-dark);
+}
+@media (hover: hover) {
+  .btn--primary:not(:disabled):hover {
+    background: var(--main-dark); border-color: var(--main-dark); color: var(--white);
+  }
+  .btn--secondary:not(:disabled):hover { background: var(--surface); color: var(--main); }
+}
+.btn:disabled {
+  background: var(--disabled-bg); border-color: var(--disabled-bg);
+  color: var(--disabled-text); cursor: not-allowed;
+}
+
+/* Кнопка-значок 44×44 px и метка «ВК» */
+.icon-btn {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 44px; height: 44px; padding: 0;
+  border: 2px solid transparent; border-radius: var(--radius-field);
+  background: transparent; color: var(--main); cursor: pointer; text-decoration: none;
+}
+@media (hover: hover) {
+  .icon-btn:hover { background: var(--surface); color: var(--main-dark); }
+}
+.icon-btn:active { background: var(--line); color: var(--main-dark); }
+.mark-box {
+  display: inline-flex; flex: none; align-items: center; justify-content: center;
+  width: 44px; height: 44px; border: 2px solid var(--main); border-radius: var(--radius-field);
+  color: var(--main); font-size: var(--fs-small); line-height: var(--lh-small); font-weight: 600;
+  text-decoration: none;
+}
+
+/* 5.1 Шапка: телефон и планшет 60 px, меню; от 1280 px 84 px, ссылки в строку */
+.site-header { background: var(--white); border-bottom: 1px solid var(--line); }
+.site-header__bar {
+  display: flex; flex-wrap: wrap; align-items: center; column-gap: var(--space-8);
+  min-height: 60px;
+}
+.logo {
+  margin-right: auto; padding-block: var(--space-8);
+  font-size: var(--fs-logo); line-height: var(--lh-logo); font-weight: 600;
+  color: var(--main); white-space: nowrap;
+}
+.menu-btn { display: none; }
+.js .menu-btn { display: inline-flex; }
+.menu-btn .icon-close, .menu-btn[aria-expanded="true"] .icon-open { display: none; }
+.menu-btn[aria-expanded="true"] .icon-close { display: block; }
+.site-nav { flex: 1 0 100%; padding-bottom: var(--space-16); border-top: 1px solid var(--line); }
+.js .site-nav { display: none; }
+.js .site-nav.is-open { display: block; }
+.site-nav li + li { border-top: 1px solid var(--line); }
+.site-nav a { display: flex; align-items: center; gap: var(--space-12); min-height: 48px; padding-block: var(--space-8); }
+.site-nav .nav-accent, .site-nav .nav-accent:active { color: var(--accent); }
+@media (hover: hover) {
+  .site-nav .nav-accent:hover { color: var(--accent); }
+}
+.vk-link { text-decoration: none; }
+.vk-link__label { text-decoration: underline; text-underline-offset: 3px; }
+@media (hover: hover) {
+  .vk-link:hover .mark-box { background: var(--surface); }
+}
+.vk-link:active .mark-box { background: var(--line); }
+
+@media (min-width: 1280px) {
+  .site-header__bar { flex-wrap: nowrap; min-height: 84px; column-gap: var(--space-48); }
+  .logo { margin-right: 0; }
+  .site-header__call, .js .menu-btn { display: none; }
+  .js .site-nav, .js .site-nav.is-open, .site-nav {
+    display: block; flex: 1; padding-bottom: 0; border-top: 0;
+  }
+  .site-nav ul { display: flex; align-items: center; gap: var(--space-24); }
+  .site-nav li + li { border-top: 0; }
+  .site-nav a { min-height: 44px; }
+  .site-nav__vk { margin-left: auto; }
+  .vk-link__label {
+    position: absolute; width: 1px; height: 1px; margin: -1px; overflow: hidden;
+    clip: rect(0, 0, 0, 0); white-space: nowrap;
+  }
+}
+
+/* Заглушка вместо фото: светлый градиент, значок картинки, подпись */
+.photo-ph {
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  gap: var(--space-8); aspect-ratio: 16 / 10; padding: var(--space-16);
+  border-radius: var(--radius-photo);
+  background: linear-gradient(135deg, var(--surface), var(--line));
+  color: var(--text-muted); font-size: var(--fs-small); line-height: var(--lh-small); text-align: center;
+}
+.photo-ph .icon { width: 48px; height: 48px; stroke-width: 1.5; }
+
+/* 5.3 Первый экран */
+.hero { padding-top: var(--space-32); row-gap: var(--space-24); }
+.hero__text, .hero__photo { grid-column: 1 / -1; }
+.hero__lead { margin-top: var(--space-16); color: var(--text-muted); }
+.hero__actions { display: flex; flex-direction: column; gap: var(--space-16); margin-top: var(--space-24); }
+.hero__actions .btn { width: 100%; }
+@media (min-width: 768px) {
+  .hero__actions { flex-direction: row; flex-wrap: wrap; }
+  .hero__actions .btn { width: auto; }
+  .hero__photo .photo-ph { aspect-ratio: 2 / 1; }
+}
+@media (min-width: 1024px) {
+  .hero { padding-top: var(--space-48); align-items: center; }
+  .hero__text { grid-column: 1 / span 5; }
+  .hero__photo { grid-column: 6 / span 3; }
+  .hero__photo .photo-ph { aspect-ratio: 4 / 3; }
+}
+@media (min-width: 1280px) {
+  .hero__text { grid-column: 1 / span 7; }
+  .hero__photo { grid-column: 8 / span 5; }
+}
+
+/* 5.4 Раздел: заголовок, содержимое, ссылка «Все …» */
+.section { margin-top: var(--space-48); }
+.section__head {
+  display: flex; align-items: baseline; justify-content: space-between;
+  gap: var(--space-16); margin-bottom: var(--space-24);
+}
+.section__intro { margin-bottom: var(--space-24); }
+.link-all--head { display: none; }
+.link-all--foot { display: inline-block; margin-top: var(--space-24); }
+@media (min-width: 768px) {
+  .link-all--head { display: inline; }
+  .link-all--foot { display: none; }
+}
+.empty p + p { margin-top: var(--space-8); }
+
+/* 5.5 Карточка: мероприятие, мастер-класс; новость — строка списка */
+.cards { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--gutter); }
+@media (min-width: 768px) { .cards { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (min-width: 1280px) { .cards { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+.card {
+  display: flex; flex-direction: column; gap: var(--space-8);
+  padding: var(--space-16); background: var(--surface); border-radius: var(--radius-card);
+}
+@media (min-width: 768px) { .card { padding: var(--space-24); } }
+.card .photo-ph { margin-bottom: var(--space-8); }
+.card__date, .card__meta { color: var(--text-muted); }
+.card__label { color: var(--accent); font-size: var(--fs-small); line-height: var(--lh-small); font-weight: 600; }
+.card__actions { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-8) var(--space-16); margin-top: var(--space-8); }
+.card__actions .small { color: var(--text-muted); }
+.news-list { display: grid; gap: var(--space-16); }
+.news-item__date { display: block; color: var(--text-muted); }
+.news-item__link { font-weight: 600; }
+
+/* «Новости» и блок «Об организации»: на компьютере рядом (7 + 5 колонок), на телефоне друг под другом */
+.split { margin-top: var(--space-48); row-gap: var(--space-48); align-items: start; }
+.split > * { grid-column: 1 / -1; }
+@media (min-width: 1024px) {
+  .split > .news { grid-column: 1 / span 4; }
+  .split > .about { grid-column: 5 / span 4; }
+}
+@media (min-width: 1280px) {
+  .split > .news { grid-column: 1 / span 7; }
+  .split > .about { grid-column: 8 / span 5; }
+}
+
+/* 5.6 Блок «Об организации» */
+.about { padding: 20px; background: var(--surface); border-radius: var(--radius-card); }
+@media (min-width: 768px) { .about { padding: var(--space-32); } }
+.about > h2 + p { margin-top: var(--space-24); }
+.about__more { margin-top: var(--space-16); }
+.about h3 { margin-top: var(--space-24); }
+.about__links { display: flex; flex-wrap: wrap; gap: var(--space-8) var(--space-24); margin-top: var(--space-8); }
+.about .btn { margin-top: var(--space-24); }
+
+/* 5.8 Подвал */
+.site-footer { margin-top: var(--space-48); padding-block: var(--space-32); background: var(--surface); color: var(--text); }
+.footer__cols { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--space-24); }
+@media (min-width: 768px) {
+  .footer__cols { grid-template-columns: repeat(3, minmax(0, 1fr)); column-gap: var(--gutter); }
+}
+.footer__cols h2 { font-size: var(--fs-h3); line-height: var(--lh-h3); }
+.footer__cols ul { display: grid; gap: var(--space-8); margin-top: var(--space-8); }
+.footer__bottom {
+  display: flex; flex-wrap: wrap; justify-content: space-between; gap: var(--space-8) var(--space-24);
+  margin-top: var(--space-32); padding-top: var(--space-16); border-top: 1px solid var(--line);
+  font-size: var(--fs-small); line-height: var(--lh-small);
+}
+
+/* 5.7 Форма «Задать вопрос»: до 7 колонок на компьютере, во всю ширину на телефоне */
+.question__inner { grid-column: 1 / -1; }
+@media (min-width: 768px) { .question__inner { grid-column: 1 / span 7; } }
+.question__inner > p + p { margin-top: var(--space-8); }
+.form { display: flex; flex-direction: column; gap: var(--space-24); margin-top: var(--space-24); }
+.field { display: grid; gap: var(--space-8); min-width: 0; }
+.field__top { display: flex; flex-wrap: wrap; align-items: baseline; gap: 0 var(--space-8); }
+.field__label, .field__top label, legend.field__label {
+  display: block; font-size: var(--fs-small); line-height: var(--lh-small); font-weight: 400; color: var(--text);
+}
+.field__req, .field__hint { color: var(--text-muted); font-size: var(--fs-small); line-height: var(--lh-small); }
+.group { min-width: 0; border: 0; }
+.group > legend { margin-bottom: var(--space-8); }
+.group__body { display: grid; gap: var(--space-8); }
+.group__fields { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--space-24); }
+@media (min-width: 768px) { .group__fields { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+
+/* Поле: высота 48 px, «Вопрос» от 96 px, рамка 2 px border, скругление 14 px */
+.control {
+  display: block; width: 100%; min-height: 48px; padding: 0 var(--space-16);
+  border: 2px solid var(--border); border-radius: var(--radius-field);
+  background: var(--white); color: var(--text); font: 400 var(--fs-text)/var(--lh-text) var(--font);
+  -webkit-appearance: none; appearance: none;
+}
+textarea.control { min-height: 96px; padding-block: var(--space-12); resize: vertical; }
+@media (hover: hover) {
+  .control:hover:not(:disabled):not([aria-invalid="true"]) { border-color: var(--text-muted); }
+}
+.control[aria-invalid="true"] { border-color: var(--error); }
+.control:disabled { background: var(--disabled-bg); border-color: var(--disabled-bg); color: var(--disabled-text); cursor: not-allowed; }
+
+/* Ошибка: текст со значком под полем или группой */
+.error {
+  display: flex; align-items: flex-start; gap: var(--space-8);
+  color: var(--error); font-size: var(--fs-small); line-height: var(--lh-small); font-weight: 600;
+}
+.error[hidden] { display: none; }
+.error .icon { width: 20px; height: 20px; }
+
+/* Чекбокс согласия 24×24 px, по умолчанию не отмечен */
+.check { position: relative; display: flex; align-items: flex-start; gap: var(--space-12); }
+.check__input { position: absolute; left: 0; top: 0; width: 24px; height: 24px; margin: 0; opacity: 0; cursor: pointer; }
+.check__box {
+  display: grid; flex: none; place-items: center; width: 24px; height: 24px; pointer-events: none;
+  border: 2px solid var(--border); border-radius: var(--radius-check); background: var(--white); color: var(--white);
+}
+.check__box .icon { width: 16px; height: 16px; stroke-width: 3; opacity: 0; }
+.check__input:checked + .check__box { background: var(--main); border-color: var(--main); }
+.check__input:checked + .check__box .icon { opacity: 1; }
+.check__input[aria-invalid="true"] + .check__box { border-color: var(--error); }
+.check__input:focus-visible + .check__box { outline: 3px solid var(--main-dark); outline-offset: 2px; }
+.check__input:disabled + .check__box { background: var(--disabled-bg); border-color: var(--disabled-bg); }
+@media (hover: hover) {
+  .check:hover .check__input:not(:checked):not(:disabled):not([aria-invalid="true"]) + .check__box { border-color: var(--text-muted); }
+}
+.check__input:not(:disabled):active + .check__box { border-color: var(--main-dark); }
+.check__label { cursor: pointer; }
+.consent__more, .consent__note { margin-left: calc(24px + var(--space-12)); } /* под текстом подписи: ширина чекбокса и промежуток */
+.consent__note { color: var(--text-muted); font-size: var(--fs-small); line-height: var(--lh-small); }
+
+/* Отправка: кнопка во всю ширину на телефоне, сообщение под ней */
+.form__actions { display: flex; flex-direction: column; }
+.form__actions .btn { width: 100%; }
+@media (min-width: 768px) { .form__actions .btn { width: auto; align-self: flex-start; } }
+.status:not(:empty) {
+  margin-top: var(--space-16); padding: var(--space-12) var(--space-16);
+  border-width: 2px; border-style: solid; border-radius: var(--radius-field);
+}
+.status__text { display: flex; align-items: flex-start; gap: var(--space-12); font-weight: 600; }
+.status--info { background: var(--surface); border-color: var(--border); color: var(--text); }
+.status--success { background: var(--success-bg); border-color: var(--success); color: var(--success); }
+.status--error { background: var(--error-bg); border-color: var(--error); color: var(--error); }
+.status--info .status__text { font-weight: 400; }
+
+/* Скрытое поле-ловушка против спама: вне экрана, не display: none */
+.hp { position: absolute; left: -10000px; top: auto; width: 1px; height: 1px; overflow: hidden; }

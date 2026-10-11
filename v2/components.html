@@ -1,0 +1,701 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Компоненты — РАДИ ДЕТЕЙ</title>
+  <meta name="description" content="Справочник компонентов главной страницы СРОО «РАДИ ДЕТЕЙ»: все компоненты раздела 5 стандарта со всеми состояниями.">
+  <meta name="robots" content="noindex">
+  <link rel="icon" href="data:,">
+  <link rel="preload" href="fonts/golos-cyrillic.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="fonts/golos-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    /* Оформление справочника и принудительные состояния (hover, active, focus) для показа.
+       Цвета только через переменные из styles.css. */
+    .doc { padding-bottom: var(--space-48); }
+    .doc > section { margin-top: var(--space-48); padding-top: var(--space-24); border-top: 1px solid var(--line); }
+    .doc > section > h2 { margin-bottom: var(--space-8); }
+    .doc h3 { margin-top: var(--space-32); margin-bottom: var(--space-12); }
+    .doc .spec { color: var(--text-muted); margin-bottom: var(--space-16); }
+    .doc-toc { display: flex; flex-wrap: wrap; gap: var(--space-8) var(--space-24); margin-top: var(--space-16); }
+    .swatches { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: var(--space-16); }
+    .swatch { border: 1px solid var(--line); border-radius: var(--radius-photo); overflow: hidden; }
+    .swatch__color { height: 48px; border-bottom: 1px solid var(--line); }
+    .swatch__info { padding: var(--space-12); }
+    .swatch__info p { max-width: none; }
+    .table-wrap { overflow-x: auto; }
+    .doc table { border-collapse: collapse; min-width: 560px; width: 100%; }
+    .doc th, .doc td { padding: var(--space-8) var(--space-12); border-bottom: 1px solid var(--line); text-align: left; vertical-align: baseline; }
+    .doc th { font-weight: 600; }
+    .scale { display: flex; flex-wrap: wrap; align-items: flex-end; gap: var(--space-16); }
+    .scale div { display: grid; gap: var(--space-4); justify-items: start; }
+    .scale i { display: block; height: 24px; background: var(--main); }
+    .radii { display: flex; flex-wrap: wrap; gap: var(--space-16); }
+    .radii div { width: 128px; height: 64px; display: grid; place-items: center; background: var(--surface); border: 2px solid var(--border); text-align: center; }
+    .matrix { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 248px), 1fr)); gap: var(--space-16) var(--space-24); align-items: start; }
+    .matrix > div { display: grid; gap: var(--space-8); justify-items: start; padding: var(--space-4); }
+    .matrix > div.wide { grid-column: 1 / -1; }
+    .matrix .cap { color: var(--text-muted); font-size: var(--fs-small); line-height: var(--lh-small); }
+    .matrix .btn, .matrix .control { max-width: 100%; }
+    .frames { display: flex; flex-wrap: wrap; gap: var(--space-24); align-items: flex-start; }
+    .frame-slot, .frame { min-width: 0; max-width: 100%; margin: 0; }
+    .frame__cap { color: var(--text-muted); font-size: var(--fs-small); line-height: var(--lh-small); margin-bottom: var(--space-8); }
+    .frame__scroll { max-width: 100%; overflow-x: auto; border: 1px solid var(--border); border-radius: var(--radius-field); }
+    .frame iframe { display: block; border: 0; background: var(--white); transform-origin: 0 0; }
+    .frame__zoom { overflow: hidden; }
+    .container.doc { max-width: 1520px; }
+    .state-demo .btn--primary.is-hover:not(:disabled), .state-demo .btn--primary.is-active:not(:disabled) { background: var(--main-dark); border-color: var(--main-dark); color: var(--white); }
+    .state-demo .btn--secondary.is-hover:not(:disabled) { background: var(--surface); }
+    .state-demo .btn--secondary.is-active:not(:disabled) { background: var(--surface); border-color: var(--main-dark); color: var(--main-dark); }
+    .state-demo .is-focus { outline: 3px solid var(--main-dark); outline-offset: 2px; }
+    .state-demo .icon-btn.is-hover, .state-demo .mark-box.is-hover { background: var(--surface); color: var(--main-dark); }
+    .state-demo .icon-btn.is-active, .state-demo .mark-box.is-active { background: var(--line); color: var(--main-dark); }
+    .state-demo a.is-hover, .state-demo a.is-active { color: var(--main-dark); text-decoration-thickness: 2px; }
+    .state-demo a.nav-accent.is-hover, .state-demo a.nav-accent.is-active { color: var(--accent); }
+    .state-demo .control.is-hover { border-color: var(--text-muted); }
+    .state-demo .check.is-hover .check__box { border-color: var(--text-muted); }
+    .state-demo .check.is-active .check__box { border-color: var(--main-dark); }
+  </style>
+</head>
+<body>
+  <script>document.documentElement.classList.add('js');</script>
+  <a class="skip-link" href="#doc">Перейти к содержимому</a>
+  <svg class="sprite" id="sprite" width="0" height="0" aria-hidden="true" focusable="false">
+    <symbol id="i-phone" viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></symbol>
+    <symbol id="i-menu" viewBox="0 0 24 24"><path d="M3 6h18M3 12h18M3 18h18"/></symbol>
+    <symbol id="i-close" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></symbol>
+    <symbol id="i-image" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></symbol>
+    <symbol id="i-alert" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 8v4M12 16h.01"/></symbol>
+    <symbol id="i-check-circle" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M8 12.5l3 3 5-6"/></symbol>
+    <symbol id="i-info" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></symbol>
+    <symbol id="i-check" viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></symbol>
+  </svg>
+  <main class="container doc state-demo" id="doc">
+    <div class="section__head" style="margin-top: var(--space-32)">
+      <h1>Компоненты главной страницы</h1>
+    </div>
+    <p>Справочник по разделу 5 стандарта: все восемь компонентов и их состояния. Страница использует тот же <code>styles.css</code>, что и <code>index.html</code>. Блоки страницы показаны в рамках на ширинах 360, 768, 1024 и 1440 px, поэтому адаптивность видна на любом экране. Разметка блоков лежит в элементах <code>template</code> внизу файла, <code>index.html</code> собран из них без изменений.</p>
+    <nav class="doc-toc" aria-label="Содержание справочника">
+      <a href="#tokens">Цвета, шрифты, отступы</a>
+      <a href="#c-button">Кнопка</a>
+      <a href="#c-links">Ссылки и значки</a>
+      <a href="#c-header">Шапка</a>
+      <a href="#c-hero">Первый экран</a>
+      <a href="#c-section">Раздел</a>
+      <a href="#c-card">Карточка</a>
+      <a href="#c-about">Об организации</a>
+      <a href="#c-form">Форма</a>
+      <a href="#c-footer">Подвал</a>
+    </nav>
+    <section id="tokens" aria-labelledby="tokens-title">
+      <h2 id="tokens-title">Цвета, шрифт, отступы</h2>
+      <p class="spec">Цвета заданы только переменными в <code>:root</code> файла <code>styles.css</code>, других hex в CSS нет. Контраст текста не ниже 4.5:1, рамок и значков не ниже 3:1.</p>
+      <div class="swatches">
+        <div class="swatch"><div class="swatch__color" style="background: var(--main)"></div><div class="swatch__info"><p><code>--main</code> #0A6C74</p><p class="small muted">Ссылки, основная кнопка, значки. С белым 6.16:1</p></div></div>
+        <div class="swatch"><div class="swatch__color" style="background: var(--main-dark)"></div><div class="swatch__info"><p><code>--main-dark</code> #07535A</p><p class="small muted">Наведение и нажатие основной кнопки, кольцо фокуса. 8.77:1</p></div></div>
+        <div class="swatch"><div class="swatch__color" style="background: var(--accent)"></div><div class="swatch__info"><p><code>--accent</code> #A85300</p><p class="small muted">Пункт меню «Как помочь», метка «Пример». 5.38:1</p></div></div>
+        <div class="swatch"><div class="swatch__color" style="background: var(--text)"></div><div class="swatch__info"><p><code>--text</code> #1E2A32</p><p class="small muted">Текст и заголовки. 14.66:1</p></div></div>
+        <div class="swatch"><div class="swatch__color" style="background: var(--text-muted)"></div><div class="swatch__info"><p><code>--text-muted</code> #4B5B66</p><p class="small muted">Даты, подписи, подсказки полей. 7.03:1</p></div></div>
+        <div class="swatch"><div class="swatch__color" style="background: var(--border)"></div><div class="swatch__info"><p><code>--border</code> #7D8E97</p><p class="small muted">Рамки полей и чекбокса. 3.39:1</p></div></div>
+        <div class="swatch"><div class="swatch__color" style="background: var(--surface)"></div><div class="swatch__info"><p><code>--surface</code> #F4F7F7</p><p class="small muted">Фон карточек, блока «Об организации» и подвала</p></div></div>
+        <div class="swatch"><div class="swatch__color" style="background: var(--line)"></div><div class="swatch__info"><p><code>--line</code> #DCE3E5</p><p class="small muted">Разделители, линия под шапкой. Только декор</p></div></div>
+        <div class="swatch"><div class="swatch__color" style="background: var(--success)"></div><div class="swatch__info"><p><code>--success</code> #1B7A3A</p><p class="small muted">Сообщение «Вопрос отправлен». 5.40:1</p></div></div>
+        <div class="swatch"><div class="swatch__color" style="background: var(--success-bg)"></div><div class="swatch__info"><p><code>--success-bg</code> #E9F5EE</p><p class="small muted">Фон сообщения об успехе, в паре 4.82:1</p></div></div>
+        <div class="swatch"><div class="swatch__color" style="background: var(--error)"></div><div class="swatch__info"><p><code>--error</code> #B42318</p><p class="small muted">Ошибки полей и отправки. 6.57:1</p></div></div>
+        <div class="swatch"><div class="swatch__color" style="background: var(--error-bg)"></div><div class="swatch__info"><p><code>--error-bg</code> #FBEDEC</p><p class="small muted">Фон сообщения об ошибке, в паре 5.77:1</p></div></div>
+        <div class="swatch"><div class="swatch__color" style="background: var(--disabled-bg)"></div><div class="swatch__info"><p><code>--disabled-bg</code> #E6EBEC</p><p class="small muted">Фон неактивной кнопки</p></div></div>
+        <div class="swatch"><div class="swatch__color" style="background: var(--disabled-text)"></div><div class="swatch__info"><p><code>--disabled-text</code> #5F6E77</p><p class="small muted">Текст неактивной кнопки</p></div></div>
+        <div class="swatch"><div class="swatch__color" style="background: var(--white)"></div><div class="swatch__info"><p><code>--white</code> #FFFFFF</p><p class="small muted">Фон страницы, текст основной кнопки</p></div></div>
+      </div>
+      <h3>Типографика</h3>
+      <p class="spec">Один шрифт, Golos Text (SIL OFL 1.1), запасной Arial. Начертания 400 и 600. Размеры в rem, значения: телефон / от 1024 px.</p>
+      <div class="table-wrap" data-label="Типографика, таблица">
+        <table>
+          <thead><tr><th scope="col">Стиль</th><th scope="col">Размер и интерлиньяж</th><th scope="col">Образец</th></tr></thead>
+          <tbody>
+            <tr><th scope="row">H1</th><td>30/38 / 40/48, 600</td><td><p style="font-size: var(--fs-h1); line-height: var(--lh-h1); font-weight: 600">Общественная организация</p></td></tr>
+            <tr><th scope="row">H2, заголовок раздела</th><td>20/28 / 24/32, 600</td><td><p class="h2">Ближайшие мероприятия</p></td></tr>
+            <tr><th scope="row">H3, заголовок карточки</th><td>16/24 / 18/28, 600</td><td><p class="h3">Аппликация из цветной бумаги</p></td></tr>
+            <tr><th scope="row">Текст, кнопки, поля</th><td>16/24 / 18/28, 400, кнопки 600</td><td><p>Поддержка семей, в которых растут дети с ОВЗ</p></td></tr>
+            <tr><th scope="row">Дата, подпись, подсказка</th><td>14/20, 400</td><td><p class="small muted">20.06.2026</p></td></tr>
+            <tr><th scope="row">Логотип-текст</th><td>19 / 26 px, 600, цвет main</td><td><p class="logo" style="margin: 0; padding: 0">РАДИ ДЕТЕЙ</p></td></tr>
+          </tbody>
+        </table>
+      </div>
+      <h3>Отступы и скругления</h3>
+      <p class="spec">Отступы кратны 4 px. Между разделами 48 px, между заголовком раздела и содержимым 24 px. Строка текста не длиннее 66 знаков.</p>
+      <div class="scale">
+        <div><i style="width: 4px"></i><span class="small">4</span></div>
+        <div><i style="width: 8px"></i><span class="small">8</span></div>
+        <div><i style="width: 12px"></i><span class="small">12</span></div>
+        <div><i style="width: 16px"></i><span class="small">16</span></div>
+        <div><i style="width: 24px"></i><span class="small">24</span></div>
+        <div><i style="width: 32px"></i><span class="small">32</span></div>
+        <div><i style="width: 48px"></i><span class="small">48</span></div>
+      </div>
+      <div class="radii" style="margin-top: var(--space-24)">
+        <div class="small" style="border-radius: var(--radius-button)">Кнопка 24</div>
+        <div class="small" style="border-radius: var(--radius-card)">Карточка 20</div>
+        <div class="small" style="border-radius: var(--radius-photo)">Фото 16</div>
+        <div class="small" style="border-radius: var(--radius-field)">Поле 14</div>
+      </div>
+    </section>
+    <section id="c-button" aria-labelledby="c-button-title">
+      <h2 id="c-button-title">5.2. Кнопка</h2>
+      <p class="spec">Высота 48 px, скругление 24 px, поля по 24 px, текст 600. На телефоне кнопки первого экрана и формы во всю ширину (см. рамки ниже). Состояния: обычное, наведение, фокус, нажатие, неактивное. Наведение включается только при <code>@media (hover: hover)</code>, здесь оно показано принудительно.</p>
+      <h3>Основная</h3>
+      <div class="matrix">
+        <div><span class="cap">Обычное</span><button class="btn btn--primary" type="button">Задать вопрос</button></div>
+        <div><span class="cap">Наведение</span><button class="btn btn--primary is-hover" type="button">Задать вопрос</button></div>
+        <div><span class="cap">Фокус</span><button class="btn btn--primary is-focus" type="button">Задать вопрос</button></div>
+        <div><span class="cap">Нажатие</span><button class="btn btn--primary is-active" type="button">Задать вопрос</button></div>
+        <div><span class="cap">Неактивное (disabled)</span><button class="btn btn--primary" type="button" disabled>Задать вопрос</button></div>
+      </div>
+      <h3>Второстепенная</h3>
+      <div class="matrix">
+        <div><span class="cap">Обычное</span><button class="btn btn--secondary" type="button">Мастер-классы дома</button></div>
+        <div><span class="cap">Наведение</span><button class="btn btn--secondary is-hover" type="button">Мастер-классы дома</button></div>
+        <div><span class="cap">Фокус</span><button class="btn btn--secondary is-focus" type="button">Мастер-классы дома</button></div>
+        <div><span class="cap">Нажатие</span><button class="btn btn--secondary is-active" type="button">Мастер-классы дома</button></div>
+        <div><span class="cap">Неактивное (disabled)</span><button class="btn btn--secondary" type="button" disabled>Начать</button></div>
+      </div>
+    </section>
+
+    <section id="c-links" aria-labelledby="c-links-title">
+      <h2 id="c-links-title">Ссылки и кнопки-значки</h2>
+      <p class="spec">Ссылки подчёркнуты, цвет main, ссылки на текущий сайт открываются в той же вкладке. Кольцо фокуса: 3 px main-dark со смещением 2 px у любого элемента, на который можно перейти клавишей Tab. Кнопки-значки 44×44 px с <code>aria-label</code>, значки внутри скрыты от экранного доступа.</p>
+      <h3>Ссылка</h3>
+      <div class="matrix">
+        <div><span class="cap">Обычное</span><a href="#c-links">Все новости</a></div>
+        <div><span class="cap">Наведение</span><a class="is-hover" href="#c-links">Все новости</a></div>
+        <div><span class="cap">Фокус</span><a class="is-focus" href="#c-links">Все новости</a></div>
+        <div><span class="cap">Нажатие</span><a class="is-active" href="#c-links">Все новости</a></div>
+      </div>
+      <h3>Пункт меню «Как помочь» (цвет accent)</h3>
+      <div class="matrix">
+        <div><span class="cap">Обычное</span><a class="nav-accent" style="color: var(--accent)" href="#c-links">Как помочь</a></div>
+        <div><span class="cap">Наведение</span><a class="nav-accent is-hover" style="color: var(--accent)" href="#c-links">Как помочь</a></div>
+        <div><span class="cap">Фокус</span><a class="nav-accent is-focus" style="color: var(--accent)" href="#c-links">Как помочь</a></div>
+        <div><span class="cap">Нажатие</span><a class="nav-accent is-active" style="color: var(--accent)" href="#c-links">Как помочь</a></div>
+      </div>
+      <h3>Кнопка-значок «Позвонить» (ссылка tel:)</h3>
+      <div class="matrix">
+        <div><span class="cap">Обычное</span><a class="icon-btn" href="tel:+70000000000" aria-label="Позвонить"><svg class="icon" aria-hidden="true"><use href="#i-phone"/></svg></a></div>
+        <div><span class="cap">Наведение</span><a class="icon-btn is-hover" href="tel:+70000000000" aria-label="Позвонить"><svg class="icon" aria-hidden="true"><use href="#i-phone"/></svg></a></div>
+        <div><span class="cap">Фокус</span><a class="icon-btn is-focus" href="tel:+70000000000" aria-label="Позвонить"><svg class="icon" aria-hidden="true"><use href="#i-phone"/></svg></a></div>
+        <div><span class="cap">Нажатие</span><a class="icon-btn is-active" href="tel:+70000000000" aria-label="Позвонить"><svg class="icon" aria-hidden="true"><use href="#i-phone"/></svg></a></div>
+      </div>
+      <h3>Кнопка-значок «Меню»: закрыто и открыто</h3>
+      <div class="matrix">
+        <div><span class="cap">Закрыто</span><button class="icon-btn" type="button" aria-label="Меню" aria-expanded="false"><svg class="icon" aria-hidden="true"><use href="#i-menu"/></svg></button></div>
+        <div><span class="cap">Открыто, наведение</span><button class="icon-btn is-hover" type="button" aria-label="Меню" aria-expanded="true"><svg class="icon" aria-hidden="true"><use href="#i-close"/></svg></button></div>
+        <div><span class="cap">Фокус</span><button class="icon-btn is-focus" type="button" aria-label="Меню" aria-expanded="false"><svg class="icon" aria-hidden="true"><use href="#i-menu"/></svg></button></div>
+        <div><span class="cap">Нажатие</span><button class="icon-btn is-active" type="button" aria-label="Меню" aria-expanded="false"><svg class="icon" aria-hidden="true"><use href="#i-menu"/></svg></button></div>
+      </div>
+      <h3>Ссылка на сообщество ВКонтакте</h3>
+      <div class="matrix">
+        <div><span class="cap">Обычное</span><a class="vk-link" href="#c-links"><span aria-hidden="true" class="mark-box">ВК</span><span class="visually-hidden">ВКонтакте</span></a></div>
+        <div><span class="cap">Наведение</span><a class="vk-link" href="#c-links"><span aria-hidden="true" class="mark-box is-hover">ВК</span><span class="visually-hidden">ВКонтакте</span></a></div>
+        <div><span class="cap">Фокус</span><a class="vk-link is-focus" href="#c-links"><span aria-hidden="true" class="mark-box">ВК</span><span class="visually-hidden">ВКонтакте</span></a></div>
+        <div><span class="cap">Нажатие</span><a class="vk-link" href="#c-links"><span aria-hidden="true" class="mark-box is-active">ВК</span><span class="visually-hidden">ВКонтакте</span></a></div>
+      </div>
+    </section>
+    <section id="c-header" aria-labelledby="c-header-title">
+      <h2 id="c-header-title">5.1. Шапка</h2>
+      <p class="spec">Логотип-текст, под шапкой линия line, шапка не закрепляется при прокрутке. Телефон и планшет: высота 60 px, справа кнопки-значки 44×44 px «Позвонить» и «Меню», ссылки в меню. Меню открывается и закрывается с клавиатуры, Esc его закрывает. От 1280 px: высота 84 px, ссылки на разделы страницы в строку, «Как помочь» цветом accent, справа ссылка на сообщество ВКонтакте. Поиска на одностраничной версии нет. Без JavaScript меню видно списком под логотипом.</p>
+      <div class="frames">
+        <div class="frame-slot" data-tpl="tpl-header" data-width="360" data-caption="Телефон, 360 px: меню закрыто"></div>
+        <div class="frame-slot" data-tpl="tpl-header" data-width="360" data-open="1" data-caption="Телефон, 360 px: меню открыто"></div>
+        <div class="frame-slot" data-tpl="tpl-header" data-width="1024" data-caption="Планшет, 1024 px: то же, что на телефоне"></div>
+        <div class="frame-slot" data-tpl="tpl-header" data-width="1440" data-caption="Компьютер, 1440 px: ссылки в строку"></div>
+      </div>
+    </section>
+
+    <section id="c-hero" aria-labelledby="c-hero-title">
+      <h2 id="c-hero-title">5.3. Первый экран</h2>
+      <p class="spec">H1, подзаголовок цветом text-muted, две кнопки: основная «Задать вопрос» ведёт к форме, второстепенная «Мастер-классы дома» ведёт к разделу. Фото на компьютере справа (5 колонок из 12), на телефоне под кнопками. Пока фото нет, вместо него заглушка: светлый градиент, значок картинки и подпись.</p>
+      <div class="frames">
+        <div class="frame-slot" data-tpl="tpl-hero" data-width="360" data-caption="Телефон, 360 px"></div>
+        <div class="frame-slot" data-tpl="tpl-hero" data-width="768" data-caption="Планшет, 768 px"></div>
+        <div class="frame-slot" data-tpl="tpl-hero" data-width="1024" data-caption="1024 px: 5 колонок из 8 и 3 колонки"></div>
+        <div class="frame-slot" data-tpl="tpl-hero" data-width="1440" data-caption="Компьютер, 1440 px: 7 и 5 колонок из 12"></div>
+      </div>
+    </section>
+
+    <section id="c-section" aria-labelledby="c-section-title">
+      <h2 id="c-section-title">5.4. Раздел</h2>
+      <p class="spec">Заголовок H2 и, если есть куда вести, ссылка «Все …»: на компьютере справа от заголовка, на телефоне под содержимым (пример со ссылкой «Все новости» в рамках блока «Об организации» ниже). Содержимое: карточки, список или пустое состояние. Пустое состояние: короткий текст и ссылка, без пустой рамки. Между разделами 48 px, между заголовком и содержимым 24 px.</p>
+      <div class="frames">
+        <div class="frame-slot" data-tpl="tpl-events" data-width="360" data-caption="Пустое состояние, 360 px"></div>
+        <div class="frame-slot" data-tpl="tpl-events" data-width="1440" data-caption="Пустое состояние, 1440 px"></div>
+        <div class="frame-slot" data-tpl="tpl-masterclasses" data-width="360" data-caption="Раздел с карточкой, 360 px"></div>
+        <div class="frame-slot" data-tpl="tpl-masterclasses" data-width="1440" data-caption="Раздел с карточкой, 1440 px"></div>
+      </div>
+    </section>
+
+    <section id="c-card" aria-labelledby="c-card-title">
+      <h2 id="c-card-title">5.5. Карточка</h2>
+      <p class="spec">Фон surface, скругление 20 px, поля 24 px на компьютере и 16 px на телефоне, фото сверху со скруглением 16 px. Мероприятие: дата и время, название (H3), место. Мастер-класс: метка «Пример» цветом accent, название (H3), строка «Этапов: N, есть задания», второстепенная кнопка «Начать» (неактивна) и подпись «Скоро на сайте». Новость: строка списка без фото и фона. В ряд: 3 карточки от 1280 px, 2 на планшете, 1 на телефоне. Данные мероприятия ниже условные, на странице их нет.</p>
+      <div class="frames">
+        <div class="frame-slot" data-tpl="demo-cards" data-width="360" data-caption="Телефон, 360 px: 1 в ряд"></div>
+        <div class="frame-slot" data-tpl="demo-cards" data-width="768" data-caption="Планшет, 768 px: 2 в ряд"></div>
+        <div class="frame-slot" data-tpl="demo-cards" data-width="1440" data-caption="Компьютер, 1440 px: 3 в ряд"></div>
+      </div>
+    </section>
+    <section id="c-about" aria-labelledby="c-about-title">
+      <h2 id="c-about-title">5.6. Блок «Об организации» и новости</h2>
+      <p class="spec">Фон surface, скругление 20 px, поля 32 px на компьютере и 20 px на телефоне. Внутри H2, два предложения, ссылка «О нас», H3 «Как помочь», ссылки «Реквизиты» и «Финансовые отчёты», основная кнопка «Все способы помочь». На компьютере блок справа от новостей (5 колонок, новости 7), на телефоне под новостями. Новость: дата и заголовок-ссылка.</p>
+      <div class="frames">
+        <div class="frame-slot" data-tpl="tpl-news-about" data-width="360" data-caption="Телефон, 360 px"></div>
+        <div class="frame-slot" data-tpl="tpl-news-about" data-width="768" data-caption="Планшет, 768 px"></div>
+        <div class="frame-slot" data-tpl="tpl-news-about" data-width="1024" data-caption="1024 px: 4 и 4 колонки из 8"></div>
+        <div class="frame-slot" data-tpl="tpl-news-about" data-width="1440" data-caption="Компьютер, 1440 px: 7 и 5 колонок из 12"></div>
+      </div>
+    </section>
+
+    <section id="c-form" aria-labelledby="c-form-title">
+      <h2 id="c-form-title">5.7. Форма «Задать вопрос»</h2>
+      <p class="spec">Подпись всегда над полем, плейсхолдер её не заменяет. Поле высотой 48 px, «Вопрос» от 96 px, рамка 2 px border, скругление 14 px, чекбокс 24×24 px. Ошибка: рамка error, текст со значком под полем или группой, связь через <code>aria-describedby</code>, <code>aria-invalid</code>. Состояния поля: обычное, наведение, фокус, заполнено, ошибка, неактивное.</p>
+      <h3>Текстовое поле</h3>
+      <div class="matrix">
+        <div><span class="cap">Обычное</span><div class="field"><div class="field__top"><label for="d-f1">Имя</label><span class="field__req" aria-hidden="true">обязательно</span></div><input class="control" id="d-f1" type="text" autocomplete="off"></div></div>
+        <div><span class="cap">Наведение</span><div class="field"><div class="field__top"><label for="d-f2">Имя</label></div><input class="control is-hover" id="d-f2" type="text" autocomplete="off"></div></div>
+        <div><span class="cap">Фокус</span><div class="field"><div class="field__top"><label for="d-f3">Имя</label></div><input class="control is-focus" id="d-f3" type="text" autocomplete="off"></div></div>
+        <div><span class="cap">Заполнено</span><div class="field"><div class="field__top"><label for="d-f4">Имя</label></div><input class="control" id="d-f4" type="text" value="Анна" autocomplete="off"></div></div>
+        <div><span class="cap">Ошибка</span><div class="field"><div class="field__top"><label for="d-f5">Имя</label></div><input class="control" id="d-f5" type="text" aria-invalid="true" aria-describedby="d-f5-e" autocomplete="off"><p class="error" id="d-f5-e"><svg class="icon" aria-hidden="true"><use href="#i-alert"/></svg><span class="error__text">Укажите имя</span></p></div></div>
+        <div><span class="cap">Неактивное (disabled)</span><div class="field"><div class="field__top"><label for="d-f6">Имя</label></div><input class="control" id="d-f6" type="text" disabled autocomplete="off"></div></div>
+      </div>
+      <h3>Поле «Вопрос»</h3>
+      <div class="matrix">
+        <div><span class="cap">Обычное, от 96 px</span><div class="field"><div class="field__top"><label for="d-t1">Вопрос</label><span class="field__req" aria-hidden="true">обязательно</span></div><p class="field__hint">До 1000 знаков</p><textarea class="control" id="d-t1" rows="2"></textarea></div></div>
+        <div><span class="cap">Ошибка</span><div class="field"><div class="field__top"><label for="d-t2">Вопрос</label></div><p class="field__hint">До 1000 знаков</p><textarea class="control" id="d-t2" rows="2" aria-invalid="true" aria-describedby="d-t2-e"></textarea><p class="error" id="d-t2-e"><svg class="icon" aria-hidden="true"><use href="#i-alert"/></svg><span class="error__text">Напишите вопрос</span></p></div></div>
+      </div>
+      <h3>Группа «Как с вами связаться»</h3>
+      <div class="matrix">
+        <div class="wide"><span class="cap">Обычное: хотя бы одно из двух полей, подсказка «Укажите e-mail, телефон или оба»</span>
+          <fieldset class="group" style="width: 100%"><legend class="field__label">Как с вами связаться</legend><div class="group__body"><p class="field__hint">Укажите e-mail, телефон или оба</p><div class="group__fields"><div class="field"><div class="field__top"><label for="d-g1">E-mail</label></div><input class="control" id="d-g1" type="email" autocomplete="off"></div><div class="field"><div class="field__top"><label for="d-g2">Телефон</label></div><input class="control" id="d-g2" type="tel" inputmode="tel" autocomplete="off"></div></div></div></fieldset></div>
+        <div class="wide"><span class="cap">Ошибка группы: не заполнено ни одно поле</span>
+          <fieldset class="group" style="width: 100%"><legend class="field__label">Как с вами связаться</legend><div class="group__body"><p class="field__hint">Укажите e-mail, телефон или оба</p><div class="group__fields"><div class="field"><div class="field__top"><label for="d-g3">E-mail</label></div><input class="control" id="d-g3" type="email" aria-invalid="true" aria-describedby="d-g-e" autocomplete="off"></div><div class="field"><div class="field__top"><label for="d-g4">Телефон</label></div><input class="control" id="d-g4" type="tel" inputmode="tel" aria-invalid="true" aria-describedby="d-g-e" autocomplete="off"></div></div><p class="error" id="d-g-e"><svg class="icon" aria-hidden="true"><use href="#i-alert"/></svg><span class="error__text">Укажите e-mail или телефон</span></p></div></fieldset></div>
+        <div class="wide"><span class="cap">Ошибки в обоих заполненных полях</span>
+          <fieldset class="group" style="width: 100%"><legend class="field__label">Как с вами связаться</legend><div class="group__body"><div class="group__fields"><div class="field"><div class="field__top"><label for="d-g5">E-mail</label></div><input class="control" id="d-g5" type="email" value="anna@" aria-invalid="true" aria-describedby="d-g5-e" autocomplete="off"><p class="error" id="d-g5-e"><svg class="icon" aria-hidden="true"><use href="#i-alert"/></svg><span class="error__text">Проверьте e-mail: он должен быть вида name@example.org</span></p></div><div class="field"><div class="field__top"><label for="d-g6">Телефон</label></div><input class="control" id="d-g6" type="tel" inputmode="tel" value="123" aria-invalid="true" aria-describedby="d-g6-e" autocomplete="off"><p class="error" id="d-g6-e"><svg class="icon" aria-hidden="true"><use href="#i-alert"/></svg><span class="error__text">Проверьте телефон: нужно от 10 до 15 цифр</span></p></div></div></div></fieldset></div>
+      </div>
+      <h3>Чекбокс согласия (обязательно, по умолчанию не отмечен)</h3>
+      <div class="matrix">
+        <div><span class="cap">Не отмечен</span><div class="check"><input class="check__input" type="checkbox" id="d-c1"><span class="check__box" aria-hidden="true"><svg class="icon"><use href="#i-check"/></svg></span><label class="check__label" for="d-c1">Даю согласие на обработку персональных данных</label></div></div>
+        <div><span class="cap">Наведение</span><div class="check is-hover"><input class="check__input" type="checkbox" id="d-c2"><span class="check__box" aria-hidden="true"><svg class="icon"><use href="#i-check"/></svg></span><label class="check__label" for="d-c2">Даю согласие на обработку персональных данных</label></div></div>
+        <div><span class="cap">Фокус</span><div class="check"><input class="check__input" type="checkbox" id="d-c3"><span class="check__box is-focus" aria-hidden="true"><svg class="icon"><use href="#i-check"/></svg></span><label class="check__label" for="d-c3">Даю согласие на обработку персональных данных</label></div></div>
+        <div><span class="cap">Нажатие</span><div class="check is-active"><input class="check__input" type="checkbox" id="d-c4"><span class="check__box" aria-hidden="true"><svg class="icon"><use href="#i-check"/></svg></span><label class="check__label" for="d-c4">Даю согласие на обработку персональных данных</label></div></div>
+        <div><span class="cap">Отмечен</span><div class="check"><input class="check__input" type="checkbox" id="d-c5" checked><span class="check__box" aria-hidden="true"><svg class="icon"><use href="#i-check"/></svg></span><label class="check__label" for="d-c5">Даю согласие на обработку персональных данных</label></div></div>
+        <div><span class="cap">Ошибка</span><div class="field"><div class="check"><input class="check__input" type="checkbox" id="d-c6" aria-invalid="true" aria-describedby="d-c6-e"><span class="check__box" aria-hidden="true"><svg class="icon"><use href="#i-check"/></svg></span><label class="check__label" for="d-c6">Даю согласие на обработку персональных данных</label></div><p class="error" id="d-c6-e"><svg class="icon" aria-hidden="true"><use href="#i-alert"/></svg><span class="error__text">Подтвердите согласие на обработку персональных данных</span></p></div></div>
+        <div><span class="cap">Неактивное (disabled)</span><div class="check"><input class="check__input" type="checkbox" id="d-c7" disabled><span class="check__box" aria-hidden="true"><svg class="icon"><use href="#i-check"/></svg></span><label class="check__label" for="d-c7">Даю согласие на обработку персональных данных</label></div></div>
+      </div>
+      <h3>Сообщения после отправки (объявляются через aria-live="polite")</h3>
+      <div class="matrix">
+        <div><span class="cap">Идёт отправка, кнопка неактивна</span><button class="btn btn--primary" type="button" disabled>Отправить</button><div class="status status--info"><p class="status__text"><svg class="icon" aria-hidden="true"><use href="#i-info"/></svg><span>Отправляем вопрос…</span></p></div></div>
+        <div><span class="cap">Успех</span><div class="status status--success" style="margin-top: 0"><p class="status__text"><svg class="icon" aria-hidden="true"><use href="#i-check-circle"/></svg><span>Вопрос отправлен</span></p></div></div>
+        <div><span class="cap">Ошибка отправки</span><div class="status status--error" style="margin-top: 0"><p class="status__text"><svg class="icon" aria-hidden="true"><use href="#i-alert"/></svg><span>Не удалось отправить вопрос. Проверьте интернет и нажмите «Отправить» ещё раз. Введённое сохранено.</span></p></div></div>
+      </div>
+      <h3>Форма целиком</h3>
+      <p class="spec">Заголовок, строка о том, зачем форма, строка «Учебный прототип…», поля, чекбокс, скрытое поле-ловушка против спама, кнопка «Отправить». Форма до 7 колонок на компьютере, во всю ширину на телефоне; от 768 px поля группы в одну строку. Пояснение к согласию с JavaScript сворачивается по ссылке. Без JavaScript кнопка «Отправить» неактивна, под формой стоит сообщение.</p>
+      <div class="frames">
+        <div class="frame-slot" data-tpl="tpl-question" data-width="360" data-caption="Телефон, 360 px"></div>
+        <div class="frame-slot" data-tpl="tpl-question" data-width="360" data-errors="name,contacts,question,consent" data-caption="Телефон, 360 px: отправка с пустыми полями"></div>
+        <div class="frame-slot" data-tpl="tpl-question" data-width="768" data-caption="Планшет, 768 px"></div>
+        <div class="frame-slot" data-tpl="tpl-question" data-width="1440" data-status="success" data-caption="Компьютер, 1440 px: вопрос отправлен"></div>
+      </div>
+    </section>
+
+    <section id="c-footer" aria-labelledby="c-footer-title">
+      <h2 id="c-footer-title">5.8. Подвал</h2>
+      <p class="spec">Фон surface, текст text, три колонки на компьютере и одна на телефоне: «Контакты» (условные телефон и почта), «Документы» (ссылки на текущий сайт), «Сообщество» (ВКонтакте). Внизу «© СРОО «РАДИ ДЕТЕЙ»» и строка «Учебный прототип. Не официальный сайт организации».</p>
+      <div class="frames">
+        <div class="frame-slot" data-tpl="tpl-footer" data-width="360" data-caption="Телефон, 360 px"></div>
+        <div class="frame-slot" data-tpl="tpl-footer" data-width="768" data-caption="Планшет, 768 px"></div>
+        <div class="frame-slot" data-tpl="tpl-footer" data-width="1440" data-caption="Компьютер, 1440 px"></div>
+      </div>
+    </section>
+
+    <section id="c-page" aria-labelledby="c-page-title">
+      <h2 id="c-page-title">Страница целиком</h2>
+      <p>Порядок блоков: шапка, первый экран, «Ближайшие мероприятия», «Мастер-классы дома», «Новости» с блоком «Об организации», «Задать вопрос», подвал. Собранная из этих компонентов главная: <a href="index.html">index.html</a>.</p>
+    </section>
+  </main>
+  <!-- Разметка блоков страницы. index.html собран из этих шаблонов без изменений. -->
+  <template id="tpl-header">
+    <header class="site-header">
+      <div class="container site-header__bar">
+        <span class="logo">РАДИ ДЕТЕЙ</span>
+        <a class="icon-btn site-header__call" href="tel:+70000000000" aria-label="Позвонить">
+          <svg class="icon" aria-hidden="true"><use href="#i-phone"/></svg>
+        </a>
+        <button class="icon-btn menu-btn" type="button" aria-label="Меню" aria-expanded="false" aria-controls="site-nav">
+          <svg class="icon icon-open" aria-hidden="true"><use href="#i-menu"/></svg>
+          <svg class="icon icon-close" aria-hidden="true"><use href="#i-close"/></svg>
+        </button>
+        <nav class="site-nav" id="site-nav" aria-label="Разделы страницы">
+          <ul>
+            <li><a href="#events">Мероприятия</a></li>
+            <li><a href="#masterclasses">Мастер-классы</a></li>
+            <li><a href="#news">Новости</a></li>
+            <li><a class="nav-accent" href="#help">Как помочь</a></li>
+            <li><a href="#question">Задать вопрос</a></li>
+            <li><a href="#contacts">Контакты</a></li>
+            <li class="site-nav__vk">
+              <a class="vk-link" href="https://vk.com/sroo_radi_detey" target="_blank" rel="noopener noreferrer">
+                <span class="mark-box" aria-hidden="true">ВК</span>
+                <span class="vk-link__label">ВКонтакте</span>
+                <span class="visually-hidden"> (откроется в новой вкладке)</span>
+              </a>
+            </li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+  </template>
+
+  <template id="tpl-hero">
+    <div class="container hero grid">
+      <div class="hero__text">
+        <h1>Общественная организация родителей <span class="nowrap">детей-инвалидов</span> «РАДИ&nbsp;ДЕТЕЙ»</h1>
+        <p class="hero__lead">Поддержка семей, в которых растут дети с ОВЗ, дети-инвалиды и инвалиды с детства</p>
+        <div class="hero__actions">
+          <a class="btn btn--primary" href="#question">Задать вопрос</a>
+          <a class="btn btn--secondary" href="#masterclasses">Мастер-классы дома</a>
+        </div>
+      </div>
+      <div class="hero__photo">
+        <!-- Когда появится фото, заменить заглушку на picture: WebP, запасной JPEG, width и height, alt по смыслу:
+        <picture>
+          <source type="image/webp" srcset="img/hero.webp">
+          <img src="img/hero.jpg" width="1200" height="900" alt="Что на фото">
+        </picture> -->
+        <div class="photo-ph">
+          <svg class="icon" aria-hidden="true"><use href="#i-image"/></svg>
+          <span>Фото с мероприятия</span>
+        </div>
+      </div>
+    </div>
+  </template>
+
+  <template id="tpl-events">
+    <section class="container section" id="events" aria-labelledby="events-title">
+      <div class="section__head">
+        <h2 id="events-title">Ближайшие мероприятия</h2>
+      </div>
+      <div class="empty">
+        <p>Ближайших мероприятий пока нет</p>
+        <p><a href="https://vk.com/sroo_radi_detey" target="_blank" rel="noopener noreferrer">Сообщество организации во ВКонтакте<span class="visually-hidden"> (откроется в новой вкладке)</span></a></p>
+      </div>
+    </section>
+  </template>
+
+  <template id="tpl-masterclasses">
+    <section class="container section" id="masterclasses" aria-labelledby="masterclasses-title">
+      <div class="section__head">
+        <h2 id="masterclasses-title">Мастер-классы дома</h2>
+      </div>
+      <p class="section__intro">Очные мастер-классы организация проводит по воскресеньям. На сайте мастер-классы можно проходить бесплатно и без регистрации.</p>
+      <ul class="cards">
+        <li class="card">
+          <div class="photo-ph" aria-hidden="true">
+            <svg class="icon" aria-hidden="true"><use href="#i-image"/></svg>
+          </div>
+          <p class="card__label">Пример</p>
+          <h3>Аппликация из цветной бумаги</h3>
+          <p class="card__meta">Этапов: 5, есть задания</p>
+          <div class="card__actions">
+            <button class="btn btn--secondary" type="button" disabled aria-describedby="masterclass-soon">Начать</button>
+            <span class="small" id="masterclass-soon">Скоро на сайте</span>
+          </div>
+        </li>
+      </ul>
+    </section>
+  </template>
+
+  <template id="tpl-news-about">
+    <div class="container grid split">
+      <section class="news" id="news" aria-labelledby="news-title">
+        <div class="section__head">
+          <h2 id="news-title">Новости</h2>
+          <a class="link-all link-all--head" href="http://deti-invalid.ru/category/news/">Все новости</a>
+        </div>
+        <ul class="news-list">
+          <li class="news-item">
+            <time class="news-item__date small" datetime="2026-06-20">20.06.2026</time>
+            <a class="news-item__link" href="http://deti-invalid.ru/news/%d0%b4%d0%b5%d0%bd%d1%8c-%d0%bf%d0%be%d0%bb%d0%bd%d1%8b%d0%b9-%d0%be%d1%82%d0%ba%d1%80%d1%8b%d1%82%d0%b8%d0%b9-%d0%bf%d0%be%d0%b5%d0%b7%d0%b4%d0%ba%d0%b0-%d0%b2-%d0%b5%d0%ba%d0%b0%d1%82%d0%b5%d1%80/">День, полный открытий: поездка в Екатеринбургский зоопарк</a>
+          </li>
+          <li class="news-item">
+            <time class="news-item__date small" datetime="2026-06-02">02.06.2026</time>
+            <a class="news-item__link" href="http://deti-invalid.ru/news/more-ulybok-radosti-i-syurprizov-v-den-zashhity-detej/">Море улыбок, радости и сюрпризов в День защиты детей!</a>
+          </li>
+          <li class="news-item">
+            <time class="news-item__date small" datetime="2026-03-03">03.03.2026</time>
+            <a class="news-item__link" href="http://deti-invalid.ru/news/vesna-nachalas-s-prazdnika/">Весна началась с праздника!</a>
+          </li>
+        </ul>
+        <a class="link-all link-all--foot" href="http://deti-invalid.ru/category/news/">Все новости</a>
+      </section>
+      <section class="about" id="about" aria-labelledby="about-title">
+        <h2 id="about-title">Об организации</h2>
+        <p>СРОО «РАДИ ДЕТЕЙ» объединяет семьи, в которых растут дети с ОВЗ, дети-инвалиды и инвалиды с детства. Организация объединяет родителей детей с самыми разными заболеваниями, помогает с лекарствами и оплатой реабилитации, устраивает праздники, выходы в театры и на экскурсии и консультирует родителей.</p>
+        <p class="about__more"><a href="http://deti-invalid.ru/about/">О нас</a></p>
+        <h3 id="help">Как помочь</h3>
+        <ul class="about__links">
+          <li><a href="http://deti-invalid.ru/rekvizity/">Реквизиты</a></li>
+          <li><a href="http://deti-invalid.ru/finansovye-otchyoty/">Финансовые отчёты</a></li>
+        </ul>
+        <a class="btn btn--primary" href="http://deti-invalid.ru/help/">Все способы помочь</a>
+      </section>
+    </div>
+  </template>
+
+  <template id="tpl-footer">
+    <footer class="site-footer">
+      <div class="container">
+        <div class="footer__cols">
+          <div id="contacts">
+            <h2>Контакты</h2>
+            <ul>
+              <li>Телефон: <a href="tel:+70000000000">+7 000 000-00-00</a></li>
+              <li>Почта: <a href="mailto:info@example.org">info@example.org</a></li>
+            </ul>
+          </div>
+          <div>
+            <h2>Документы</h2>
+            <ul>
+              <li><a href="http://deti-invalid.ru/about/">Устав</a></li>
+              <li><a href="http://deti-invalid.ru/finansovye-otchyoty/">Финансовые отчёты</a></li>
+              <li><a href="http://deti-invalid.ru/politika-obrabotki-personalnyx-dannyx/">Политика обработки персональных данных</a></li>
+            </ul>
+          </div>
+          <div>
+            <h2>Сообщество</h2>
+            <ul>
+              <li><a href="https://vk.com/sroo_radi_detey" target="_blank" rel="noopener noreferrer">ВКонтакте<span class="visually-hidden"> (откроется в новой вкладке)</span></a></li>
+            </ul>
+          </div>
+        </div>
+        <div class="footer__bottom">
+          <p>© СРОО «РАДИ ДЕТЕЙ»</p>
+          <p>Учебный прототип. Не официальный сайт организации</p>
+        </div>
+      </div>
+    </footer>
+  </template>
+
+  <template id="tpl-question">
+    <section class="container section grid" id="question" aria-labelledby="question-title">
+      <div class="question__inner">
+        <div class="section__head">
+          <h2 id="question-title">Задать вопрос</h2>
+        </div>
+        <p>Напишите, что вы хотите узнать об организации, и укажите, как с вами связаться.</p>
+        <p><strong>Учебный прототип:</strong> вопросы получает команда проекта УрФУ, а не организация. Сведения о здоровье не указывайте.</p>
+        <form class="form" id="question-form" method="post" action="#question" novalidate>
+          <div class="field">
+            <div class="field__top">
+              <label for="q-name">Имя</label>
+              <span class="field__req" aria-hidden="true">обязательно</span>
+            </div>
+            <input class="control" type="text" id="q-name" name="name" autocomplete="name" maxlength="100" required aria-describedby="q-name-error">
+            <p class="error" id="q-name-error" hidden><svg class="icon" aria-hidden="true"><use href="#i-alert"/></svg><span class="error__text"></span></p>
+          </div>
+          <fieldset class="group" id="q-contacts" aria-describedby="q-contacts-hint">
+            <legend class="field__label">Как с вами связаться</legend>
+            <div class="group__body">
+              <p class="field__hint" id="q-contacts-hint">Укажите e-mail, телефон или оба</p>
+              <div class="group__fields">
+                <div class="field">
+                  <div class="field__top"><label for="q-email">E-mail</label></div>
+                  <input class="control" type="email" id="q-email" name="email" autocomplete="email" autocapitalize="off" spellcheck="false" maxlength="254" aria-describedby="q-email-error q-contacts-error">
+                  <p class="error" id="q-email-error" hidden><svg class="icon" aria-hidden="true"><use href="#i-alert"/></svg><span class="error__text"></span></p>
+                </div>
+                <div class="field">
+                  <div class="field__top"><label for="q-phone">Телефон</label></div>
+                  <input class="control" type="tel" id="q-phone" name="phone" autocomplete="tel" inputmode="tel" maxlength="30" aria-describedby="q-phone-error q-contacts-error">
+                  <p class="error" id="q-phone-error" hidden><svg class="icon" aria-hidden="true"><use href="#i-alert"/></svg><span class="error__text"></span></p>
+                </div>
+              </div>
+              <p class="error" id="q-contacts-error" hidden><svg class="icon" aria-hidden="true"><use href="#i-alert"/></svg><span class="error__text"></span></p>
+            </div>
+          </fieldset>
+          <div class="field">
+            <div class="field__top">
+              <label for="q-question">Вопрос</label>
+              <span class="field__req" aria-hidden="true">обязательно</span>
+            </div>
+            <p class="field__hint" id="q-question-hint">До 1000 знаков</p>
+            <textarea class="control" id="q-question" name="message" rows="4" required aria-describedby="q-question-hint q-question-error"></textarea>
+            <p class="error" id="q-question-error" hidden><svg class="icon" aria-hidden="true"><use href="#i-alert"/></svg><span class="error__text"></span></p>
+          </div>
+          <div class="field consent">
+            <div class="check">
+              <input class="check__input" type="checkbox" id="q-consent" name="consent" value="да" required aria-describedby="q-consent-error q-consent-note">
+              <span class="check__box" aria-hidden="true"><svg class="icon"><use href="#i-check"/></svg></span>
+              <label class="check__label" for="q-consent">Даю согласие на обработку персональных данных <span class="field__req" aria-hidden="true">обязательно</span></label>
+            </div>
+            <p class="error" id="q-consent-error" hidden><svg class="icon" aria-hidden="true"><use href="#i-alert"/></svg><span class="error__text"></span></p>
+            <p class="consent__more"><a href="#q-consent-note" id="q-consent-link" aria-controls="q-consent-note">Пояснение к согласию</a></p>
+            <p class="consent__note" id="q-consent-note">Вопросы получает команда учебного проекта УрФУ, а не организация. Данные нужны только для проверки формы и удаляются после занятия.</p>
+          </div>
+          <div class="hp" aria-hidden="true">
+            <label for="q-website">Сайт</label>
+            <input type="text" id="q-website" name="website" tabindex="-1" autocomplete="off">
+          </div>
+          <div class="form__actions">
+            <button class="btn btn--primary" type="submit" id="q-submit" disabled>Отправить</button>
+            <div class="status" id="q-status" role="status" aria-live="polite" aria-atomic="true"></div>
+          </div>
+          <noscript>
+            <p class="error"><svg class="icon" aria-hidden="true"><use href="#i-alert"/></svg><span>Чтобы отправить вопрос, включите JavaScript в браузере.</span></p>
+          </noscript>
+        </form>
+      </div>
+    </section>
+  </template>
+  <!-- Только для справочника: условные карточки мероприятия, на странице их нет -->
+  <template id="demo-cards">
+    <div class="container" style="padding-block: 24px">
+      <ul class="cards">
+        <li class="card">
+          <div class="photo-ph" aria-hidden="true"><svg class="icon" aria-hidden="true"><use href="#i-image"/></svg></div>
+          <p class="card__date small">Дата и время</p>
+          <h3>Название мероприятия</h3>
+          <p class="card__meta">Место проведения</p>
+        </li>
+        <li class="card">
+          <div class="photo-ph" aria-hidden="true"><svg class="icon" aria-hidden="true"><use href="#i-image"/></svg></div>
+          <p class="card__date small">Дата и время</p>
+          <h3>Название мероприятия</h3>
+          <p class="card__meta">Место проведения</p>
+        </li>
+        <li class="card">
+          <div class="photo-ph" aria-hidden="true"><svg class="icon" aria-hidden="true"><use href="#i-image"/></svg></div>
+          <p class="card__label">Пример</p>
+          <h3>Аппликация из цветной бумаги</h3>
+          <p class="card__meta">Этапов: 5, есть задания</p>
+          <div class="card__actions">
+            <button class="btn btn--secondary" type="button" disabled>Начать</button>
+            <span class="small">Скоро на сайте</span>
+          </div>
+        </li>
+      </ul>
+      <ul class="news-list" style="margin-top: 24px">
+        <li class="news-item">
+          <time class="news-item__date small" datetime="2026-03-03">03.03.2026</time>
+          <a class="news-item__link" href="#">Весна началась с праздника!</a>
+        </li>
+      </ul>
+    </div>
+  </template>
+
+  <script>
+    (function () {
+      var sprite = document.getElementById('sprite').outerHTML;
+      var ERRORS = {
+        name: 'Укажите имя',
+        contacts: 'Укажите e-mail или телефон',
+        question: 'Напишите вопрос',
+        consent: 'Подтвердите согласие на обработку персональных данных'
+      };
+      var frames = [];
+
+      function decorate(doc, slot) {
+        /* На странице кнопку «Отправить» включает script.js; в рамках его нет, включаем сами */
+        var send = doc.getElementById('q-submit');
+        if (send) send.disabled = false;
+        var keys = slot.dataset.errors ? slot.dataset.errors.split(',') : [];
+        keys.forEach(function (k) {
+          var err = doc.getElementById('q-' + k + '-error');
+          if (!err) return;
+          err.hidden = false;
+          err.querySelector('.error__text').textContent = ERRORS[k];
+          (k === 'contacts' ? ['q-email', 'q-phone'] : ['q-' + k]).forEach(function (id) {
+            doc.getElementById(id).setAttribute('aria-invalid', 'true');
+          });
+        });
+        if (slot.dataset.status === 'success') {
+          var st = doc.getElementById('q-status');
+          st.className = 'status status--success';
+          st.innerHTML = '<p class="status__text"><svg class="icon" aria-hidden="true"><use href="#i-check-circle"/></svg><span>Вопрос отправлен</span></p>';
+        }
+      }
+
+      function fit(f, scroll) {
+        var h = Math.ceil(f.contentDocument.documentElement.getBoundingClientRect().height);
+        var width = parseInt(f.style.width, 10);
+        var zoom = f.parentElement;
+        /* Рамка шире страницы справочника на считанные пиксели: уменьшаем её целиком (не меньше 80%),
+           при большей нехватке места рамка прокручивается вбок */
+        var scale = Math.min(1, (zoom.closest('.frames').clientWidth - 2) / width);
+        if (scale < 0.8) scale = 1;
+        f.style.height = h + 'px';
+        f.style.transform = scale < 1 ? 'scale(' + scale + ')' : '';
+        zoom.style.width = Math.floor(width * scale) + 'px';
+        zoom.style.height = Math.ceil(h * scale) + 'px';
+        markScrollable(scroll, f.title);
+      }
+
+      /* Прокручиваемая область доступна с клавиатуры (Tab, стрелки), пока она действительно прокручивается */
+      function markScrollable(box, label) {
+        if (box.scrollWidth > box.clientWidth) {
+          box.tabIndex = 0;
+          box.setAttribute('role', 'region');
+          box.setAttribute('aria-label', label);
+        } else {
+          box.removeAttribute('tabindex');
+          box.removeAttribute('role');
+          box.removeAttribute('aria-label');
+        }
+      }
+
+      var tables = Array.prototype.slice.call(document.querySelectorAll('.table-wrap'));
+      function markTables() {
+        tables.forEach(function (box) { markScrollable(box, box.dataset.label); });
+      }
+      markTables();
+      document.fonts.ready.then(markTables);
+      window.addEventListener('resize', markTables);
+
+      function build(slot) {
+        var html = slot.dataset.tpl.split(' ').map(function (id) { return document.getElementById(id).innerHTML; }).join('\n');
+        if (slot.dataset.open) {
+          html = html.replace('class="site-nav"', 'class="site-nav is-open"').replace('aria-expanded="false"', 'aria-expanded="true"');
+        }
+        var width = parseInt(slot.dataset.width, 10);
+        var fig = document.createElement('figure');
+        fig.className = 'frame';
+        var cap = document.createElement('figcaption');
+        cap.className = 'frame__cap';
+        cap.textContent = slot.dataset.caption;
+        var scroll = document.createElement('div');
+        scroll.className = 'frame__scroll';
+        var f = document.createElement('iframe');
+        var host = slot.closest('section');
+        f.title = (host ? host.querySelector('h2').textContent + ': ' : '') + slot.dataset.caption;
+        f.style.width = width + 'px';
+        f.style.height = '240px';
+        f.addEventListener('load', function () {
+          var doc = f.contentDocument;
+          decorate(doc, slot);
+          fit(f, scroll);
+          doc.fonts.ready.then(function () { fit(f, scroll); });
+          frames.push(function () { fit(f, scroll); });
+        });
+        f.srcdoc = '<!doctype html><html lang="ru" class="js"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="stylesheet" href="styles.css"><style>body > .section, body > .split { margin-top: 0; }</style></head><body>' + sprite + html + '</body></html>';
+        var zoom = document.createElement('div');
+        zoom.className = 'frame__zoom';
+        zoom.appendChild(f);
+        scroll.appendChild(zoom);
+        fig.appendChild(cap);
+        fig.appendChild(scroll);
+        slot.appendChild(fig);
+      }
+
+      Array.prototype.forEach.call(document.querySelectorAll('.frame-slot'), build);
+      window.addEventListener('resize', function () { frames.forEach(function (fn) { fn(); }); });
+    })();
+  </script>
+</body>
+</html>
