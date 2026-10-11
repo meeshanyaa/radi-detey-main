@@ -49,9 +49,12 @@ function doPost(e) {
   }
 }
 
-// GET нужен только для проверки, что развёртывание работает
+// GET отдаёт саму страницу: запасная ссылка на домене Google для мобильного интернета, где github.io не открывается.
+// Файл page.html в проекте — копия google.html из репозитория (tools/build-google-mirror.py).
 function doGet() {
-  return reply_({ ok: true, info: 'Форма принимает только POST' });
+  return HtmlService.createHtmlOutputFromFile('page')
+    .setTitle('РАДИ ДЕТЕЙ — общественная организация родителей детей-инвалидов (учебный прототип)')
+    .addMetaTag('viewport', 'width=device-width, initial-scale=1');
 }
 
 // те же проверки, что в script.js: без имени, вопроса, согласия и хотя бы одного контакта строка не записывается
