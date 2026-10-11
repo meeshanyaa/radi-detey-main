@@ -394,12 +394,11 @@ h3,
   display: block;
   padding-block: var(--space-12);
   color: var(--text);
-  text-decoration: none;
 }
 
 @media (hover: hover) {
   .nav__list a:hover {
-    text-decoration: underline;
+    color: var(--main);
   }
 }
 
@@ -422,7 +421,7 @@ h3,
   height: 32px;
   border: 2px solid currentColor;
   border-radius: 9px;
-  font-size: 0.75rem;
+  font-size: 0.875rem;
   line-height: 1;
   font-weight: 600;
 }
@@ -451,8 +450,6 @@ h3,
   }
 
   .logo {
-    font-size: 1.625rem;
-    line-height: 2rem;
     margin-right: 0;
   }
 
@@ -502,6 +499,32 @@ main {
 
 .section__more {
   margin-top: var(--space-24);
+}
+
+.section__head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--space-16);
+  margin-bottom: var(--space-24);
+}
+
+.section__head .section__title {
+  margin-bottom: 0;
+}
+
+.section__more-top {
+  display: none;
+}
+
+@media (min-width: 1024px) {
+  .section__more-top {
+    display: inline-block;
+  }
+
+  .section__head + .news + .section__more {
+    display: none;
+  }
 }
 
 .section__lead {
@@ -634,9 +657,25 @@ main {
   color: var(--text);
 }
 
+/* R3: отдельно стоящая ссылка — строчный блок, её высота равна строке, а не размеру шрифта */
+.news__item h3 a,
+.section__more a,
+.about p > a,
+.about__links a,
+.footer__cols li > a:not(.vk-link) {
+  display: inline-block;
+}
+
 @media (hover: hover) {
   .news__item h3 a:hover {
     color: var(--main);
+  }
+}
+
+@media (min-width: 1024px) {
+  .logo {
+    font-size: 1.625rem;
+    line-height: 2rem;
   }
 }
 
@@ -756,9 +795,17 @@ textarea.input {
 .error svg,
 .status svg {
   flex: none;
-  width: 20px;
-  height: 20px;
-  margin-top: 2px;
+  width: 16px;
+  height: 16px;
+  margin-top: var(--space-4);
+}
+
+@media (min-width: 1024px) {
+  .error svg,
+  .status svg {
+    width: 20px;
+    height: 20px;
+  }
 }
 
 .contacts {
@@ -796,7 +843,7 @@ textarea.input {
   flex: none;
   width: 24px;
   height: 24px;
-  margin: 2px 0 0;
+  margin: 0;
   accent-color: var(--main);
 }
 
@@ -805,7 +852,7 @@ textarea.input {
 }
 
 .details summary {
-  padding-block: 2px;
+  padding-block: var(--space-4);
   color: var(--main);
   text-decoration: underline;
   text-underline-offset: 3px;
@@ -985,7 +1032,10 @@ textarea.input {
     <div class="container split">
       <!-- 5.4 Раздел: список новостей -->
       <section id="novosti" aria-labelledby="news-title">
-        <h2 class="section__title" id="news-title">Новости</h2>
+        <div class="section__head">
+          <h2 class="section__title" id="news-title">Новости</h2>
+          <a class="section__more-top" href="http://deti-invalid.ru/category/news/" target="_blank" rel="noopener">Все новости</a>
+        </div>
         <ul class="news">
           <li class="news__item">
             <time class="small muted" datetime="2026-06-20">20.06.2026</time>
@@ -1021,7 +1071,7 @@ textarea.input {
     <section class="container question" id="vopros" aria-labelledby="q-title">
       <div class="question__intro">
         <h2 id="q-title">Задать вопрос</h2>
-        <p class="text">Напишите вопрос организации и оставьте e-mail или телефон, чтобы с вами можно было связаться.</p>
+        <p class="text">Напишите вопрос и оставьте e-mail или телефон, чтобы с вами можно было связаться.</p>
         <p class="text small muted">Учебный прототип: вопросы получает команда проекта УрФУ, а не организация. Сведения о здоровье не указывайте.</p>
       </div>
 

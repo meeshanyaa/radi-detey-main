@@ -384,12 +384,11 @@ h3,
   display: block;
   padding-block: var(--space-12);
   color: var(--text);
-  text-decoration: none;
 }
 
 @media (hover: hover) {
   .nav__list a:hover {
-    text-decoration: underline;
+    color: var(--main);
   }
 }
 
@@ -412,7 +411,7 @@ h3,
   height: 32px;
   border: 2px solid currentColor;
   border-radius: 9px;
-  font-size: 0.75rem;
+  font-size: 0.875rem;
   line-height: 1;
   font-weight: 600;
 }
@@ -441,8 +440,6 @@ h3,
   }
 
   .logo {
-    font-size: 1.625rem;
-    line-height: 2rem;
     margin-right: 0;
   }
 
@@ -492,6 +489,32 @@ main {
 
 .section__more {
   margin-top: var(--space-24);
+}
+
+.section__head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--space-16);
+  margin-bottom: var(--space-24);
+}
+
+.section__head .section__title {
+  margin-bottom: 0;
+}
+
+.section__more-top {
+  display: none;
+}
+
+@media (min-width: 1024px) {
+  .section__more-top {
+    display: inline-block;
+  }
+
+  .section__head + .news + .section__more {
+    display: none;
+  }
 }
 
 .section__lead {
@@ -624,9 +647,25 @@ main {
   color: var(--text);
 }
 
+/* R3: отдельно стоящая ссылка — строчный блок, её высота равна строке, а не размеру шрифта */
+.news__item h3 a,
+.section__more a,
+.about p > a,
+.about__links a,
+.footer__cols li > a:not(.vk-link) {
+  display: inline-block;
+}
+
 @media (hover: hover) {
   .news__item h3 a:hover {
     color: var(--main);
+  }
+}
+
+@media (min-width: 1024px) {
+  .logo {
+    font-size: 1.625rem;
+    line-height: 2rem;
   }
 }
 
@@ -746,9 +785,17 @@ textarea.input {
 .error svg,
 .status svg {
   flex: none;
-  width: 20px;
-  height: 20px;
-  margin-top: 2px;
+  width: 16px;
+  height: 16px;
+  margin-top: var(--space-4);
+}
+
+@media (min-width: 1024px) {
+  .error svg,
+  .status svg {
+    width: 20px;
+    height: 20px;
+  }
 }
 
 .contacts {
@@ -786,7 +833,7 @@ textarea.input {
   flex: none;
   width: 24px;
   height: 24px;
-  margin: 2px 0 0;
+  margin: 0;
   accent-color: var(--main);
 }
 
@@ -795,7 +842,7 @@ textarea.input {
 }
 
 .details summary {
-  padding-block: 2px;
+  padding-block: var(--space-4);
   color: var(--main);
   text-decoration: underline;
   text-underline-offset: 3px;
