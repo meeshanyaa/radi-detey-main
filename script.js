@@ -1,7 +1,8 @@
 /* Меню на телефоне и форма «Задать вопрос» (STANDARD.md, разделы 5.1 и 5.7). */
 
-// Адрес веб-приложения Google Apps Script. Пока он пуст, форма честно сообщает, что отправка не настроена.
-const FORM_ENDPOINT = '';
+// Адрес веб-приложения Google Apps Script (код в apps-script.gs). Если адрес пуст, форма сообщает, что отправка не настроена.
+const FORM_ENDPOINT =
+  'https://script.google.com/macros/s/AKfycbxw_0V6pC-xbKwMaKvdDbNQicsvfR79bbKyzTsBVmWYT9RfmJraTM0lLmSxyKj4fY0i/exec';
 
 const ICON_ERROR =
   '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M9 9l6 6M15 9l-6 6"/></svg>';
