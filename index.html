@@ -1,0 +1,225 @@
+<!doctype html>
+<html lang="ru" class="no-js">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex">
+  <title>РАДИ ДЕТЕЙ — общественная организация родителей детей-инвалидов (учебный прототип)</title>
+  <meta name="description" content="Учебный прототип главной страницы СРОО «РАДИ ДЕТЕЙ»: о поддержке семей, мастер-классах, новостях и форма вопроса.">
+  <link rel="preload" href="fonts/golos-cyrillic.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="styles.css">
+  <script>document.documentElement.classList.replace('no-js', 'js');</script>
+  <script src="script.js" defer></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Перейти к содержанию</a>
+
+  <!-- 5.1 Шапка -->
+  <header class="header" id="top">
+    <div class="container header__bar">
+      <a class="logo" href="#top">РАДИ ДЕТЕЙ</a>
+      <a class="icon-button header__call" href="tel:+70000000000" aria-label="Позвонить: +7 000 000-00-00">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 4h3l2 5-2 1a11 11 0 0 0 6 6l1-2 5 2v3a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2z"/></svg>
+      </a>
+      <button class="icon-button menu-button" type="button" aria-expanded="false" aria-controls="nav" aria-label="Меню">
+        <svg class="menu-button__open" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+        <svg class="menu-button__close" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true" hidden><path d="M6 6l12 12M18 6L6 18"/></svg>
+      </button>
+      <nav class="nav" id="nav" aria-label="Разделы страницы">
+        <ul class="nav__list">
+          <li><a href="#meropriyatiya">Мероприятия</a></li>
+          <li><a href="#master-klassy">Мастер-классы</a></li>
+          <li><a href="#novosti">Новости</a></li>
+          <li><a class="nav__help" href="#pomoch">Как помочь</a></li>
+          <li><a href="#vopros">Задать вопрос</a></li>
+          <li class="nav__vk"><a href="https://vk.com/sroo_radi_detey">Сообщество во ВКонтакте</a></li>
+        </ul>
+      </nav>
+      <a class="header__vk vk-link" href="https://vk.com/sroo_radi_detey">
+        <span class="vk-badge" aria-hidden="true">ВК</span>
+        <span class="visually-hidden">Сообщество во ВКонтакте</span>
+      </a>
+    </div>
+  </header>
+
+  <main id="main">
+    <!-- 5.3 Первый экран -->
+    <section class="container hero" aria-labelledby="hero-title">
+      <div class="hero__text">
+        <h1 id="hero-title">Общественная организация родителей <span class="nowrap">детей-инвалидов</span> <span class="nowrap">«РАДИ ДЕТЕЙ»</span></h1>
+        <p class="muted text">Поддержка семей, в которых растут дети с ОВЗ, дети-инвалиды и инвалиды с детства</p>
+        <div class="hero__actions">
+          <a class="button button--primary button--wide-mobile" href="#vopros">Задать вопрос</a>
+          <a class="button button--secondary button--wide-mobile" href="#master-klassy">Мастер-классы дома</a>
+        </div>
+      </div>
+      <figure class="photo">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="2"/><circle cx="9" cy="10" r="2"/><path d="M21 17l-5-5-9 8"/></svg>
+        <figcaption class="small">Фото с мероприятия</figcaption>
+      </figure>
+    </section>
+
+    <!-- 5.4 Раздел: пустое состояние -->
+    <section class="container" id="meropriyatiya" aria-labelledby="events-title">
+      <h2 class="section__title" id="events-title">Ближайшие мероприятия</h2>
+      <div class="empty">
+        <p>Ближайших мероприятий пока нет.</p>
+        <p>Новости организации — в <a href="https://vk.com/sroo_radi_detey">сообществе во ВКонтакте</a>.</p>
+      </div>
+    </section>
+
+    <!-- 5.4 Раздел с карточкой мастер-класса -->
+    <section class="container" id="master-klassy" aria-labelledby="mk-title">
+      <h2 class="section__title" id="mk-title">Мастер-классы дома</h2>
+      <p class="text section__lead">По воскресеньям в офисе организации проходят кулинарные и творческие мастер-классы. Скоро их можно будет пройти и дома, на сайте: бесплатно и без регистрации.</p>
+      <ul class="cards">
+        <li class="card">
+          <figure class="photo">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="2"/><circle cx="9" cy="10" r="2"/><path d="M21 17l-5-5-9 8"/></svg>
+            <figcaption class="small">Фото мастер-класса</figcaption>
+          </figure>
+          <span class="card__label small">Пример</span>
+          <h3>Аппликация из цветной бумаги</h3>
+          <p class="small muted">Этапов: 5, есть задания</p>
+          <div class="card__action">
+            <button class="button button--secondary" type="button" disabled>Начать</button>
+            <span class="small muted">Скоро на сайте</span>
+          </div>
+        </li>
+      </ul>
+    </section>
+
+    <div class="container split">
+      <!-- 5.4 Раздел: список новостей -->
+      <section id="novosti" aria-labelledby="news-title">
+        <h2 class="section__title" id="news-title">Новости</h2>
+        <ul class="news">
+          <li class="news__item">
+            <time class="small muted" datetime="2026-06-20">20.06.2026</time>
+            <h3><a href="http://deti-invalid.ru/news/%d0%b4%d0%b5%d0%bd%d1%8c-%d0%bf%d0%be%d0%bb%d0%bd%d1%8b%d0%b9-%d0%be%d1%82%d0%ba%d1%80%d1%8b%d1%82%d0%b8%d0%b9-%d0%bf%d0%be%d0%b5%d0%b7%d0%b4%d0%ba%d0%b0-%d0%b2-%d0%b5%d0%ba%d0%b0%d1%82%d0%b5%d1%80/">День, полный открытий: поездка в Екатеринбургский зоопарк</a></h3>
+          </li>
+          <li class="news__item">
+            <time class="small muted" datetime="2026-06-02">02.06.2026</time>
+            <h3><a href="http://deti-invalid.ru/news/more-ulybok-radosti-i-syurprizov-v-den-zashhity-detej/">Море улыбок, радости и сюрпризов в День защиты детей!</a></h3>
+          </li>
+          <li class="news__item">
+            <time class="small muted" datetime="2026-03-03">03.03.2026</time>
+            <h3><a href="http://deti-invalid.ru/news/vesna-nachalas-s-prazdnika/">Весна началась с праздника!</a></h3>
+          </li>
+        </ul>
+        <p class="section__more"><a href="http://deti-invalid.ru/category/news/">Все новости</a></p>
+      </section>
+
+      <!-- 5.6 Блок «Об организации» -->
+      <section class="about" id="ob-organizacii" aria-labelledby="about-title">
+        <h2 id="about-title">Об организации</h2>
+        <p class="text">СРОО «РАДИ ДЕТЕЙ» объединяет семьи, в которых растут дети с ОВЗ, дети-инвалиды и инвалиды с детства. Организация объединяет родителей детей с самыми разными заболеваниями, помогает с лекарствами и оплатой реабилитации, устраивает праздники, выходы в театры и на экскурсии и консультирует родителей.</p>
+        <p><a href="http://deti-invalid.ru/about/">О нас</a></p>
+        <h3 id="pomoch">Как помочь</h3>
+        <p class="about__links">
+          <a href="http://deti-invalid.ru/rekvizity/">Реквизиты</a>
+          <a href="http://deti-invalid.ru/finansovye-otchyoty/">Финансовые отчёты</a>
+        </p>
+        <a class="button button--primary" href="http://deti-invalid.ru/help/">Все способы помочь</a>
+      </section>
+    </div>
+
+    <!-- 5.7 Форма «Задать вопрос» -->
+    <section class="container question" id="vopros" aria-labelledby="q-title">
+      <div class="question__intro">
+        <h2 id="q-title">Задать вопрос</h2>
+        <p class="text">Напишите вопрос организации и оставьте e-mail или телефон, чтобы с вами можно было связаться.</p>
+        <p class="text small muted">Учебный прототип: вопросы получает команда проекта УрФУ, а не организация. Сведения о здоровье не указывайте.</p>
+      </div>
+
+      <form class="form" id="question-form" novalidate>
+        <div class="field">
+          <label for="name">Имя <span class="small muted">(обязательно)</span></label>
+          <input class="input" id="name" name="name" type="text" autocomplete="name" required>
+          <p class="error" id="name-error" hidden></p>
+        </div>
+
+        <fieldset class="contacts" aria-describedby="contacts-hint">
+          <legend>Как с вами связаться</legend>
+          <p class="field__hint small" id="contacts-hint">Укажите e-mail, телефон или оба</p>
+          <div class="contacts__fields">
+            <div class="field">
+              <label for="email">E-mail</label>
+              <input class="input" id="email" name="email" type="email" autocomplete="email" inputmode="email">
+              <p class="error" id="email-error" hidden></p>
+            </div>
+            <div class="field">
+              <label for="phone">Телефон</label>
+              <input class="input" id="phone" name="phone" type="tel" autocomplete="tel" inputmode="tel">
+              <p class="error" id="phone-error" hidden></p>
+            </div>
+          </div>
+          <p class="error" id="contacts-error" hidden></p>
+        </fieldset>
+
+        <div class="field">
+          <label for="message">Вопрос <span class="small muted">(обязательно)</span></label>
+          <textarea class="input" id="message" name="message" rows="4" maxlength="1000" required aria-describedby="message-hint"></textarea>
+          <p class="field__hint small" id="message-hint">До 1000 знаков</p>
+          <p class="error" id="message-error" hidden></p>
+        </div>
+
+        <div class="field">
+          <div class="consent">
+            <input type="checkbox" id="consent" name="consent" value="yes" required>
+            <label for="consent">Согласен(на) на обработку персональных данных <span class="small muted">(обязательно)</span></label>
+          </div>
+          <details class="details small">
+            <summary>Кто получает данные</summary>
+            <p>Вопросы получает команда учебного проекта УрФУ, а не организация. Данные нужны только для проверки формы и удаляются после занятия.</p>
+          </details>
+          <p class="error" id="consent-error" hidden></p>
+        </div>
+
+        <div class="trap" aria-hidden="true">
+          <label for="website">Не заполняйте это поле</label>
+          <input id="website" name="website" type="text" tabindex="-1" autocomplete="off">
+        </div>
+
+        <button class="button button--primary button--wide-mobile" type="submit">Отправить</button>
+        <div class="status" id="form-status" role="status" aria-live="polite"></div>
+      </form>
+    </section>
+  </main>
+
+  <!-- 5.8 Подвал -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer__cols">
+        <section aria-labelledby="f-contacts">
+          <h2 class="h3" id="f-contacts">Контакты</h2>
+          <ul>
+            <li><a href="tel:+70000000000">+7 000 000-00-00</a></li>
+            <li><a href="mailto:info@example.org">info@example.org</a></li>
+            <li class="small muted">Контакты условные: это учебный прототип</li>
+          </ul>
+        </section>
+        <section aria-labelledby="f-docs">
+          <h2 class="h3" id="f-docs">Документы</h2>
+          <ul>
+            <li><a href="http://deti-invalid.ru/about/">Устав (на странице «О нас»)</a></li>
+            <li><a href="http://deti-invalid.ru/finansovye-otchyoty/">Финансовые отчёты</a></li>
+            <li><a href="http://deti-invalid.ru/politika-obrabotki-personalnyx-dannyx/">Политика обработки персональных данных</a></li>
+          </ul>
+        </section>
+        <section aria-labelledby="f-community">
+          <h2 class="h3" id="f-community">Сообщество</h2>
+          <ul>
+            <li><a class="vk-link" href="https://vk.com/sroo_radi_detey"><span class="vk-badge" aria-hidden="true">ВК</span>ВКонтакте</a></li>
+          </ul>
+        </section>
+      </div>
+      <div class="footer__bottom small">
+        <p>© СРОО «РАДИ ДЕТЕЙ»</p>
+        <p>Учебный прототип. Не официальный сайт организации.</p>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>

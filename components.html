@@ -1,0 +1,203 @@
+<!doctype html>
+<html lang="ru" class="no-js">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex">
+  <title>Компоненты — РАДИ ДЕТЕЙ (учебный прототип)</title>
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="styles.css">
+  <script>document.documentElement.classList.replace('no-js', 'js');</script>
+  <script src="script.js" defer></script>
+</head>
+<body>
+  <header class="header" id="top">
+    <div class="container header__bar">
+      <a class="logo" href="#top">РАДИ ДЕТЕЙ</a>
+      <a class="icon-button header__call" href="tel:+70000000000" aria-label="Позвонить: +7 000 000-00-00">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 4h3l2 5-2 1a11 11 0 0 0 6 6l1-2 5 2v3a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2z"/></svg>
+      </a>
+      <button class="icon-button menu-button" type="button" aria-expanded="false" aria-controls="nav" aria-label="Меню">
+        <svg class="menu-button__open" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+        <svg class="menu-button__close" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true" hidden><path d="M6 6l12 12M18 6L6 18"/></svg>
+      </button>
+      <nav class="nav" id="nav" aria-label="Компоненты">
+        <ul class="nav__list">
+          <li><a href="#c-button">Кнопка</a></li>
+          <li><a href="#c-section">Раздел</a></li>
+          <li><a href="#c-card">Карточка</a></li>
+          <li><a class="nav__help" href="#c-about">Об организации</a></li>
+          <li><a href="#c-form">Форма</a></li>
+        </ul>
+      </nav>
+      <a class="header__vk vk-link" href="https://vk.com/sroo_radi_detey">
+        <span class="vk-badge" aria-hidden="true">ВК</span>
+        <span class="visually-hidden">Сообщество во ВКонтакте</span>
+      </a>
+    </div>
+  </header>
+
+  <main id="main" class="container">
+    <h1>Компоненты STANDARD.md</h1>
+    <p class="text muted">Витрина восьми компонентов и их состояний. Шапка выше — компонент 5.1, подвал ниже — 5.8.</p>
+
+    <section class="demo" id="c-button" aria-labelledby="t-button">
+      <h2 id="t-button">5.2. Кнопка</h2>
+      <div class="demo__row">
+        <a class="button button--primary" href="#c-button">Основная</a>
+        <a class="button button--primary is-hover" href="#c-button">Наведение</a>
+        <a class="button button--primary is-focus" href="#c-button">Фокус</a>
+        <a class="button button--primary is-active" href="#c-button">Нажатие</a>
+        <button class="button button--primary" type="button" disabled>Неактивная</button>
+      </div>
+      <div class="demo__row">
+        <a class="button button--secondary" href="#c-button">Второстепенная</a>
+        <a class="button button--secondary is-hover" href="#c-button">Наведение</a>
+        <a class="button button--secondary is-focus" href="#c-button">Фокус</a>
+        <a class="button button--secondary is-active" href="#c-button">Нажатие</a>
+        <button class="button button--secondary" type="button" disabled>Неактивная</button>
+      </div>
+    </section>
+
+    <section class="demo" aria-labelledby="t-hero">
+      <h2 id="t-hero">5.3. Первый экран</h2>
+      <div class="hero">
+        <div class="hero__text">
+          <p class="h1">Общественная организация родителей <span class="nowrap">детей-инвалидов</span> <span class="nowrap">«РАДИ ДЕТЕЙ»</span></p>
+          <p class="muted text">Поддержка семей, в которых растут дети с ОВЗ, дети-инвалиды и инвалиды с детства</p>
+          <div class="hero__actions">
+            <a class="button button--primary button--wide-mobile" href="#c-form">Задать вопрос</a>
+            <a class="button button--secondary button--wide-mobile" href="#c-card">Мастер-классы дома</a>
+          </div>
+        </div>
+        <figure class="photo">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="2"/><circle cx="9" cy="10" r="2"/><path d="M21 17l-5-5-9 8"/></svg>
+          <figcaption class="small">Фото с мероприятия</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section class="demo" id="c-section" aria-labelledby="t-section">
+      <h2 id="t-section">5.4. Раздел: пустое состояние</h2>
+      <div>
+        <p class="h2 section__title">Ближайшие мероприятия</p>
+        <div class="empty">
+          <p>Ближайших мероприятий пока нет.</p>
+          <p>Новости организации — в <a href="https://vk.com/sroo_radi_detey">сообществе во ВКонтакте</a>.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="demo" id="c-card" aria-labelledby="t-card">
+      <h2 id="t-card">5.5. Карточка: мероприятие, мастер-класс, новость</h2>
+      <ul class="cards">
+        <li class="card">
+          <figure class="photo">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="2"/><circle cx="9" cy="10" r="2"/><path d="M21 17l-5-5-9 8"/></svg>
+            <figcaption class="small">Фото мероприятия</figcaption>
+          </figure>
+          <p class="small muted">Дата и время</p>
+          <h3>Название мероприятия</h3>
+          <p class="small muted">Место проведения</p>
+        </li>
+        <li class="card">
+          <figure class="photo">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="2"/><circle cx="9" cy="10" r="2"/><path d="M21 17l-5-5-9 8"/></svg>
+            <figcaption class="small">Фото мастер-класса</figcaption>
+          </figure>
+          <span class="card__label small">Пример</span>
+          <h3>Аппликация из цветной бумаги</h3>
+          <p class="small muted">Этапов: 5, есть задания</p>
+          <div class="card__action">
+            <button class="button button--secondary" type="button" disabled>Начать</button>
+            <span class="small muted">Скоро на сайте</span>
+          </div>
+        </li>
+      </ul>
+      <ul class="news">
+        <li class="news__item">
+          <time class="small muted" datetime="2026-06-20">20.06.2026</time>
+          <h3><a href="#c-card">Заголовок новости — строка списка</a></h3>
+        </li>
+      </ul>
+    </section>
+
+    <section class="demo" id="c-about" aria-labelledby="t-about">
+      <h2 id="t-about">5.6. Блок «Об организации»</h2>
+      <div class="about">
+        <p class="h2">Об организации</p>
+        <p class="text">Две-три фразы со страницы «О нас» текущего сайта.</p>
+        <p><a href="#c-about">О нас</a></p>
+        <p class="h3">Как помочь</p>
+        <p class="about__links"><a href="#c-about">Реквизиты</a> <a href="#c-about">Финансовые отчёты</a></p>
+        <a class="button button--primary" href="#c-about">Все способы помочь</a>
+      </div>
+    </section>
+
+    <section class="demo" id="c-form" aria-labelledby="t-form">
+      <h2 id="t-form">5.7. Форма: состояние с ошибками и сообщения</h2>
+      <form class="form" action="#" novalidate>
+        <div class="field">
+          <label for="d-name">Имя <span class="small muted">(обязательно)</span></label>
+          <input class="input" id="d-name" type="text" autocomplete="name" aria-invalid="true" aria-describedby="d-name-error">
+          <p class="error" id="d-name-error"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M9 9l6 6M15 9l-6 6"/></svg><span>Укажите имя</span></p>
+        </div>
+        <fieldset class="contacts" aria-describedby="d-contacts-hint">
+          <legend>Как с вами связаться</legend>
+          <p class="field__hint small" id="d-contacts-hint">Укажите e-mail, телефон или оба</p>
+          <div class="contacts__fields">
+            <div class="field">
+              <label for="d-email">E-mail</label>
+              <input class="input" id="d-email" type="email" autocomplete="email" aria-invalid="true" aria-describedby="d-contacts-error">
+            </div>
+            <div class="field">
+              <label for="d-phone">Телефон</label>
+              <input class="input" id="d-phone" type="tel" autocomplete="tel" inputmode="tel" aria-invalid="true" aria-describedby="d-contacts-error">
+            </div>
+          </div>
+          <p class="error" id="d-contacts-error"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M9 9l6 6M15 9l-6 6"/></svg><span>Укажите e-mail или телефон, можно оба</span></p>
+        </fieldset>
+        <div class="field">
+          <label for="d-message">Вопрос <span class="small muted">(обязательно)</span></label>
+          <textarea class="input" id="d-message" rows="3"></textarea>
+        </div>
+        <div class="field">
+          <div class="consent">
+            <input type="checkbox" id="d-consent">
+            <label for="d-consent">Согласен(на) на обработку персональных данных</label>
+          </div>
+        </div>
+        <button class="button button--primary button--wide-mobile" type="button" disabled>Отправляем…</button>
+        <div class="status status--success"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M8 12.5l3 3 5-6"/></svg><span>Вопрос отправлен. Спасибо!</span></div>
+        <div class="status status--error"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M9 9l6 6M15 9l-6 6"/></svg><span>Не удалось отправить. Проверьте интернет и попробуйте ещё раз, введённое сохранено.</span></div>
+      </form>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer__cols">
+        <section aria-labelledby="f-contacts">
+          <h2 class="h3" id="f-contacts">Контакты</h2>
+          <ul>
+            <li><a href="tel:+70000000000">+7 000 000-00-00</a></li>
+            <li><a href="mailto:info@example.org">info@example.org</a></li>
+          </ul>
+        </section>
+        <section aria-labelledby="f-docs">
+          <h2 class="h3" id="f-docs">Документы</h2>
+          <ul><li><a href="#top">Ссылка на документ</a></li></ul>
+        </section>
+        <section aria-labelledby="f-community">
+          <h2 class="h3" id="f-community">Сообщество</h2>
+          <ul><li><a class="vk-link" href="https://vk.com/sroo_radi_detey"><span class="vk-badge" aria-hidden="true">ВК</span>ВКонтакте</a></li></ul>
+        </section>
+      </div>
+      <div class="footer__bottom small">
+        <p>© СРОО «РАДИ ДЕТЕЙ»</p>
+        <p>Учебный прототип. Не официальный сайт организации.</p>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>
