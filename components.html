@@ -26,7 +26,7 @@
           <li><a href="#c-button">Кнопка</a></li>
           <li><a href="#c-section">Раздел</a></li>
           <li><a href="#c-card">Карточка</a></li>
-          <li><a href="#c-about">Об организации</a></li>
+          <li><a href="#c-video">Ролик</a></li>
           <li><a href="#c-form">Форма</a></li>
         </ul>
       </nav>
@@ -62,18 +62,29 @@
     <section class="demo" aria-labelledby="t-hero">
       <h2 id="t-hero">5.3. Первый экран</h2>
       <div class="hero">
-        <div class="hero__text">
-          <p class="h1">Общественная организация родителей <span class="nowrap">детей-инвалидов</span> <span class="nowrap">«РАДИ ДЕТЕЙ»</span></p>
-          <p class="muted text">Поддержка семей, в которых растут дети с ОВЗ, дети-инвалиды и инвалиды с детства</p>
-          <div class="hero__actions">
-            <a class="button button--primary button--wide-mobile" href="#c-form">Задать вопрос</a>
-            <a class="button button--secondary button--wide-mobile" href="#c-card">Мастер-классы дома</a>
+        <picture class="hero__logo">
+          <source type="image/webp" srcset="img/logo.webp">
+          <img src="img/logo.jpg" width="96" height="96" alt="Логотип СРОО «РАДИ ДЕТЕЙ»" loading="lazy">
+        </picture>
+        <p class="h1 hero__title">Помогаем родителям <span class="nowrap">детей-инвалидов</span></p>
+        <p class="hero__lead muted text">Одна-две фразы о том, кто организация и кому помогает</p>
+        <div class="hero__video video">
+          <div class="video__frame">
+            <picture>
+              <source type="image/webp" srcset="img/video-cover-720.webp 720w, img/video-cover-1080.webp 1080w" sizes="(min-width: 1280px) 640px, (min-width: 1024px) 55vw, 100vw">
+              <img class="video__cover" src="img/video-cover-1080.jpg" width="1080" height="608" alt="" loading="lazy">
+            </picture>
+            <span class="video__badge small">Скоро</span>
+            <button class="video__play" type="button" disabled aria-label="Смотреть ролик">
+              <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5.5v13l10.5-6.5z"/></svg>
+            </button>
           </div>
+          <p class="small muted">Подпись под роликом</p>
         </div>
-        <figure class="photo">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="2"/><circle cx="9" cy="10" r="2"/><path d="M21 17l-5-5-9 8"/></svg>
-          <figcaption class="small">Фото с мероприятия</figcaption>
-        </figure>
+        <div class="hero__actions">
+          <a class="button button--primary button--wide-mobile" href="#c-form">Задать вопрос</a>
+        </div>
+        <p class="hero__links"><a href="#c-video">О нас</a> <a href="#c-video">Реквизиты</a> <a href="#c-video">Финансовые отчёты</a></p>
       </div>
     </section>
 
@@ -122,12 +133,13 @@
       </ul>
     </section>
 
-    <section class="demo" id="c-about" aria-labelledby="t-about">
-      <h2 id="t-about">5.6. Блок «Об организации»</h2>
-      <div class="about">
-        <p class="h2">Об организации</p>
-        <p class="text">Две-три фразы со страницы «О нас» текущего сайта.</p>
-        <p class="about__links"><a href="#c-about">О нас</a> <a href="#c-about">Реквизиты</a> <a href="#c-about">Финансовые отчёты</a></p>
+    <section class="demo" id="c-video" aria-labelledby="t-video">
+      <h2 id="t-video">5.6. Ролик: обычная кнопка, фокус и неактивная, пока ролика нет</h2>
+      <div class="demo__row">
+        <button class="video__play" type="button" aria-label="Смотреть ролик"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5.5v13l10.5-6.5z"/></svg></button>
+        <button class="video__play is-focus" type="button" aria-label="Смотреть ролик, фокус"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5.5v13l10.5-6.5z"/></svg></button>
+        <button class="video__play" type="button" disabled aria-label="Смотреть ролик, неактивная"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5.5v13l10.5-6.5z"/></svg></button>
+        <span class="video__badge small">Скоро</span>
       </div>
     </section>
 
