@@ -20,13 +20,14 @@
 }
 
 :root {
-  --main: #0A6C74;
-  --main-dark: #07535A;
+  --main: #083D83;
+  --main-dark: #052A60;
   --accent: #A85300;
   --text: #1E2A32;
   --text-muted: #4B5B66;
   --border: #7D8E97;
   --surface: #F4F7F7;
+  --surface-warm: #FDF4E3;
   --line: #DCE3E5;
   --success: #1B7A3A;
   --success-bg: #E9F5EE;
@@ -177,9 +178,10 @@ a {
   top: var(--space-8);
 }
 
+/* контейнер 1200 px, как в макетах Figma */
 .container {
   width: 100%;
-  max-width: calc(1440px + 2 * var(--pad));
+  max-width: calc(1200px + 2 * var(--pad));
   margin-inline: auto;
   padding-inline: var(--pad);
 }
@@ -278,6 +280,13 @@ h3,
   color: var(--main);
 }
 
+/* на тёмном фоне подвала */
+.button--inverse {
+  border-color: var(--white);
+  background: transparent;
+  color: var(--white);
+}
+
 .button--primary:active,
 .button--primary.is-active {
   background: var(--main-dark);
@@ -289,6 +298,12 @@ h3,
 .button--secondary.is-active {
   background: var(--surface);
   color: var(--main);
+}
+
+.button--inverse:active,
+.button--inverse.is-active {
+  background: var(--main);
+  color: var(--white);
 }
 
 @media (hover: hover) {
@@ -303,6 +318,12 @@ h3,
   .button--secondary.is-hover {
     background: var(--surface);
     color: var(--main);
+  }
+
+  .button--inverse:hover,
+  .button--inverse.is-hover {
+    background: var(--main);
+    color: var(--white);
   }
 }
 
@@ -344,6 +365,7 @@ h3,
   font-size: 1.1875rem;
   line-height: 1.5rem;
   font-weight: 600;
+  letter-spacing: 0.2px;
   text-decoration: none;
   white-space: nowrap;
 }
@@ -374,22 +396,46 @@ h3,
   height: 24px;
 }
 
+/* меню на телефоне: группы подписаны, пункты видны сразу */
 .nav__list {
   display: flex;
   flex-direction: column;
-  padding-block: var(--space-8) var(--space-16);
+  gap: var(--space-24);
+  padding-block: var(--space-16) var(--space-24);
 }
 
-.nav__list a {
+.nav__toggle {
+  display: none;
+}
+
+.nav__label {
   display: block;
-  padding-block: var(--space-12);
-  color: var(--text);
+  margin-bottom: var(--space-4);
+  color: var(--text-muted);
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.nav__sub a,
+.nav__single a {
+  display: block;
+  padding-block: var(--space-8);
+  color: var(--main);
+  font-weight: 600;
 }
 
 @media (hover: hover) {
-  .nav__list a:hover {
-    color: var(--main);
+  .nav__sub a:hover,
+  .nav__single a:hover,
+  .nav__toggle:hover {
+    color: var(--main-dark);
   }
+}
+
+.nav__vk .button {
+  width: 100%;
 }
 
 .vk-link {
@@ -413,6 +459,14 @@ h3,
 
 .header__vk {
   display: none;
+}
+
+/* 8б: логотип 26 px уже от 1024 px (раздел 3) */
+@media (min-width: 1024px) {
+  .logo {
+    font-size: 1.625rem;
+    line-height: 2rem;
+  }
 }
 
 /* меню прячется, только если работает JS */
@@ -447,12 +501,71 @@ h3,
 
   .nav__list {
     flex-direction: row;
+    align-items: center;
     gap: var(--space-32);
     padding: 0;
   }
 
-  .nav__list a {
-    padding-block: var(--space-8);
+  /* группы раскрываются кнопкой, как меню «О нас» у sundeti.ru */
+  .js .nav__label {
+    display: none;
+  }
+
+  .js .nav__toggle {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-4);
+    min-height: 44px;
+    padding: 0;
+    border: 0;
+    background: transparent;
+    color: var(--text);
+    font: inherit;
+    cursor: pointer;
+  }
+
+  .nav__chevron {
+    width: 20px;
+    height: 20px;
+  }
+
+  .nav__toggle[aria-expanded="true"] .nav__chevron {
+    transform: rotate(180deg);
+  }
+
+  .nav__group {
+    position: relative;
+  }
+
+  .js .nav__sub {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    z-index: 5;
+    min-width: 260px;
+    margin-top: var(--space-8);
+    padding: var(--space-8) var(--space-16);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-photo);
+    background: var(--white);
+  }
+
+  .js .nav__group:not(.is-open) .nav__sub {
+    display: none;
+  }
+
+  .nav__sub a,
+  .nav__single a {
+    color: var(--text);
+    font-weight: 400;
+  }
+
+  @media (hover: hover) {
+    .nav__sub a:hover,
+    .nav__single a:hover,
+    .nav__toggle:hover {
+      color: var(--main);
+    }
   }
 
   .menu-button,
@@ -482,41 +595,13 @@ main {
   margin-bottom: var(--space-24);
 }
 
-.section__more {
-  margin-top: var(--space-24);
-}
-
-.section__head {
-  display: flex;
-  align-items: baseline;
-  justify-content: space-between;
-  gap: var(--space-16);
-  margin-bottom: var(--space-24);
-}
-
-.section__head .section__title {
-  margin-bottom: 0;
-}
-
-.section__more-top {
-  display: none;
-}
-
-@media (min-width: 1024px) {
-  .section__more-top {
-    display: inline-block;
-  }
-
-  .section__head + .news + .section__more {
-    display: none;
-  }
-}
-
 .section__lead {
   margin-bottom: var(--space-24);
 }
 
-
+.section__button {
+  margin-top: var(--space-24);
+}
 
 .empty {
   display: flex;
@@ -650,6 +735,7 @@ main {
   cursor: not-allowed;
 }
 
+/* заглушка фото */
 .photo {
   display: flex;
   flex-direction: column;
@@ -657,8 +743,9 @@ main {
   justify-content: center;
   gap: var(--space-8);
   aspect-ratio: 16 / 10;
+  border: 1px solid var(--line);
   border-radius: var(--radius-photo);
-  background: linear-gradient(135deg, var(--line) 0%, var(--surface) 100%);
+  background: var(--white);
   color: var(--text-muted);
 }
 
@@ -684,6 +771,11 @@ main {
   .cards {
     grid-template-columns: repeat(3, minmax(0, 1fr));
   }
+
+  /* мастер-классы по две в ряд, как в макете */
+  .cards--two {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
 }
 
 .card {
@@ -692,12 +784,11 @@ main {
   gap: var(--space-8);
   padding: var(--space-16);
   border-radius: var(--radius-card);
-  background: var(--surface);
+  background: var(--surface-warm);
 }
 
 .card .photo {
   margin-bottom: var(--space-8);
-  background: linear-gradient(135deg, var(--line) 0%, var(--white) 100%);
 }
 
 .card__label {
@@ -720,10 +811,17 @@ main {
   }
 }
 
+/* новости: список на телефоне, три колонки от 1024 px */
 .news {
-  display: flex;
-  flex-direction: column;
+  display: grid;
   gap: var(--space-24);
+}
+
+@media (min-width: 1024px) {
+  .news {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: var(--gutter);
+  }
 }
 
 .news__item {
@@ -738,7 +836,6 @@ main {
 
 /* R3: отдельно стоящая ссылка — строчный блок, её высота равна строке, а не размеру шрифта */
 .news__item h3 a,
-.section__more a,
 .hero__links a,
 .footer__cols li > a:not(.vk-link) {
   display: inline-block;
@@ -750,25 +847,30 @@ main {
   }
 }
 
-@media (min-width: 1024px) {
-  .logo {
-    font-size: 1.625rem;
-    line-height: 2rem;
-  }
-}
-
 /* ---------- 5.7 форма ---------- */
 
 .question {
   display: flex;
   flex-direction: column;
   gap: var(--space-24);
+  padding: var(--space-16);
+  border-radius: var(--radius-card);
+  background: var(--surface-warm);
 }
 
-@media (min-width: 1280px) {
-  /* форма шириной 7 колонок из 12 */
-  .question .form {
-    width: calc((100% - 11 * var(--gutter)) * 7 / 12 + 6 * var(--gutter));
+@media (min-width: 768px) {
+  .question {
+    padding: var(--space-32);
+  }
+}
+
+@media (min-width: 1024px) {
+  /* пояснение слева, форма справа */
+  .question {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--gutter);
+    align-items: start;
   }
 }
 
@@ -934,13 +1036,42 @@ textarea.input {
 /* ---------- 5.8 подвал ---------- */
 
 .footer {
-  background: var(--surface);
-  padding-block: var(--space-32);
+  background: var(--main-dark);
+  color: var(--white);
+  padding-block: var(--space-48) var(--space-32);
+}
+
+.footer a {
+  color: var(--white);
+}
+
+@media (hover: hover) {
+  .footer a:hover {
+    color: var(--surface-warm);
+  }
+}
+
+/* на тёмном фоне кольцо фокуса белое */
+.footer :focus-visible {
+  outline-color: var(--white);
+}
+
+.footer__logo {
+  font-size: 1.1875rem;
+  line-height: 1.5rem;
+  font-weight: 600;
+  letter-spacing: 0.2px;
+}
+
+.footer__about {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-8);
 }
 
 .footer__cols {
   display: grid;
-  gap: var(--space-24);
+  gap: var(--space-32);
 }
 
 .footer__cols ul {
@@ -956,13 +1087,31 @@ textarea.input {
   gap: var(--space-4);
   margin-top: var(--space-32);
   padding-top: var(--space-16);
-  border-top: 1px solid var(--line);
+  border-top: 1px solid var(--main);
+}
+
+@media (min-width: 768px) {
+  .footer__cols {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--space-32) var(--gutter);
+  }
 }
 
 @media (min-width: 1024px) {
+  .footer__logo {
+    font-size: 1.625rem;
+    line-height: 2rem;
+  }
+}
+
+/* R2: подпись кнопки не переносится, колонка кнопки по её ширине */
+.footer__vk .button {
+  white-space: nowrap;
+}
+
+@media (min-width: 1280px) {
   .footer__cols {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: var(--gutter);
+    grid-template-columns: 3fr 3fr 4fr auto;
   }
 }
 
@@ -986,4 +1135,15 @@ textarea.input {
 .demo__row .video__play,
 .demo__row .video__badge {
   position: static;
+}
+
+.demo__dark {
+  padding: var(--space-16);
+  border-radius: var(--radius-card);
+  background: var(--main-dark);
+}
+
+.demo__dark .is-focus,
+.demo__dark :focus-visible {
+  outline-color: var(--white);
 }

@@ -1,4 +1,4 @@
-/* Меню на телефоне и форма «Задать вопрос» (STANDARD.md, разделы 5.1 и 5.7). */
+/* Меню на телефоне, группы меню на компьютере и форма «Задать вопрос» (STANDARD.md, разделы 5.1 и 5.7). */
 
 // Адрес веб-приложения Google Apps Script (код в apps-script.gs). Если адрес пуст, форма сообщает, что отправка не настроена.
 const FORM_ENDPOINT =
@@ -22,8 +22,9 @@ const ICON_OK =
     button.setAttribute('aria-expanded', String(open));
     button.setAttribute('aria-label', open ? 'Закрыть меню' : 'Меню');
     nav.classList.toggle('is-open', open);
-    iconOpen.hidden = open;
-    iconClose.hidden = !open;
+    // R11: у SVG нет свойства hidden, поэтому меняется сам атрибут
+    iconOpen.toggleAttribute('hidden', open);
+    iconClose.toggleAttribute('hidden', !open);
   }
 
   button.addEventListener('click', () => setOpen(button.getAttribute('aria-expanded') !== 'true'));
@@ -38,6 +39,54 @@ const ICON_OK =
   // после перехода по пункту меню оно закрывается
   nav.addEventListener('click', (event) => {
     if (event.target.closest('a') && button.getAttribute('aria-expanded') === 'true') setOpen(false);
+  });
+})();
+
+/* ---------- группы меню на компьютере (раздел 5.1) ---------- */
+
+(function initGroups() {
+  const toggles = [...document.querySelectorAll('.nav__toggle')];
+  if (!toggles.length) return;
+
+  function setOpen(toggle, open) {
+    toggle.setAttribute('aria-expanded', String(open));
+    toggle.parentElement.classList.toggle('is-open', open);
+  }
+
+  function closeAll(except) {
+    toggles.forEach((toggle) => {
+      if (toggle !== except) setOpen(toggle, false);
+    });
+  }
+
+  toggles.forEach((toggle) => {
+    const group = toggle.parentElement;
+    toggle.addEventListener('click', () => {
+      const open = toggle.getAttribute('aria-expanded') !== 'true';
+      closeAll(toggle);
+      setOpen(toggle, open);
+    });
+    // фокус ушёл из группы — группа закрывается
+    group.addEventListener('focusout', (event) => {
+      if (!group.contains(event.relatedTarget)) setOpen(toggle, false);
+    });
+    // после перехода по пункту группа закрывается
+    group.querySelector('.nav__sub').addEventListener('click', (event) => {
+      if (event.target.closest('a')) setOpen(toggle, false);
+    });
+  });
+
+  document.addEventListener('click', (event) => {
+    if (!event.target.closest('.nav__group')) closeAll();
+  });
+
+  document.addEventListener('keydown', (event) => {
+    if (event.key !== 'Escape') return;
+    const open = toggles.find((toggle) => toggle.getAttribute('aria-expanded') === 'true');
+    if (open) {
+      setOpen(open, false);
+      open.focus();
+    }
   });
 })();
 
@@ -194,7 +243,7 @@ const ICON_OK =
       setStatus('error', 'Не удалось отправить. Проверьте интернет и попробуйте ещё раз, введённое сохранено.');
     } finally {
       submit.disabled = false;
-      submit.textContent = 'Отправить';
+      submit.textContent = 'Отправить вопрос';
     }
   });
 })();
