@@ -392,11 +392,6 @@ h3,
   }
 }
 
-.nav__list .nav__help {
-  color: var(--accent);
-  font-weight: 600;
-}
-
 .vk-link {
   display: inline-flex;
   align-items: center;
@@ -697,14 +692,6 @@ main {
   display: flex;
   flex-wrap: wrap;
   gap: var(--space-8) var(--space-24);
-}
-
-.about h3 {
-  margin-top: var(--space-8);
-}
-
-.about .button {
-  align-self: flex-start;
 }
 
 @media (min-width: 1024px) {
