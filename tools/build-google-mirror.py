@@ -19,6 +19,19 @@ for name in ("golos-cyrillic.woff2", "golos-latin.woff2"):
     css = css.replace(f'url("fonts/{name}")', f'url("data:font/woff2;base64,{data}")')
 assert "fonts/" not in css, "в стилях остались ссылки на файлы шрифтов"
 
+# картинки из img/ тоже встраиваются: у веб-приложения Apps Script нет папки img
+MIME = {".webp": "image/webp", ".jpg": "image/jpeg", ".png": "image/png", ".svg": "image/svg+xml"}
+
+
+def inline_img(match):
+    path = root / match.group(1)
+    data = base64.b64encode(path.read_bytes()).decode("ascii")
+    return f"data:{MIME[path.suffix]};base64,{data}"
+
+
+html = re.sub(r"(img/[\w.-]+\.(?:webp|jpg|png|svg))", inline_img, html)
+assert "img/" not in html, "в разметке остались ссылки на файлы картинок"
+
 lines_to_drop = ('<link rel="preload"', '<link rel="icon"', '<script src="script.js"')
 html = "\n".join(l for l in html.split("\n") if not l.strip().startswith(lines_to_drop))
 html = html.replace('<link rel="stylesheet" href="styles.css">', "<style>\n" + css + "</style>")

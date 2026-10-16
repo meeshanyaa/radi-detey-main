@@ -108,7 +108,7 @@
         <p class="h2 section__title">Ближайшие мероприятия</p>
         <div class="empty">
           <p>Ближайших мероприятий пока нет.</p>
-          <p>Новости организации — в <a href="https://vk.com/sroo_radi_detey">сообществе во ВКонтакте</a>.</p>
+          <p>Загляните в <a href="https://vk.com/sroo_radi_detey">сообщество организации во ВКонтакте</a>.</p>
         </div>
         <a class="button button--secondary button--wide-mobile section__button" href="#c-section">Все мероприятия</a>
       </div>
@@ -149,10 +149,12 @@
     </section>
 
     <section class="demo" id="c-video" aria-labelledby="t-video">
-      <h2 id="t-video">5.6. Ролик: обычная кнопка, фокус и неактивная, пока ролика нет</h2>
+      <h2 id="t-video">5.6. Ролик: кнопка в обычном состоянии, при наведении, фокусе и нажатии, неактивная, пока ролика нет</h2>
       <div class="demo__row">
         <button class="video__play" type="button" aria-label="Смотреть ролик"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5.5v13l10.5-6.5z"/></svg></button>
+        <button class="video__play is-hover" type="button" aria-label="Смотреть ролик, наведение"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5.5v13l10.5-6.5z"/></svg></button>
         <button class="video__play is-focus" type="button" aria-label="Смотреть ролик, фокус"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5.5v13l10.5-6.5z"/></svg></button>
+        <button class="video__play is-active" type="button" aria-label="Смотреть ролик, нажатие"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5.5v13l10.5-6.5z"/></svg></button>
         <button class="video__play" type="button" disabled aria-label="Смотреть ролик, неактивная"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5.5v13l10.5-6.5z"/></svg></button>
         <span class="video__badge small">Скоро</span>
       </div>
@@ -166,7 +168,7 @@
           <p class="text">Одна строка о том, зачем форма.</p>
           <p class="text small muted">Строка об учебном прототипе.</p>
         </div>
-        <form class="form" action="#" novalidate>
+        <form class="form" action="#" method="post" novalidate>
           <div class="field">
             <label for="d-name">Ваше имя <span class="small muted">(обязательно)</span></label>
             <input class="input" id="d-name" type="text" autocomplete="name" aria-invalid="true" aria-describedby="d-name-error">

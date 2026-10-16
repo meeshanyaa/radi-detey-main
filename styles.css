@@ -49,6 +49,7 @@
   --radius-card: 20px;
   --radius-photo: 16px;
   --radius-field: 14px;
+  --radius-badge: 8px;
 
   --gutter: 16px;
   --pad: 16px;
@@ -267,6 +268,8 @@ h3,
   font-weight: 600;
   text-align: center;
   text-decoration: none;
+  /* R2: подпись кнопки не переносится */
+  white-space: nowrap;
   cursor: pointer;
 }
 
@@ -451,7 +454,7 @@ h3,
   width: 32px;
   height: 32px;
   border: 2px solid currentColor;
-  border-radius: 9px;
+  border-radius: var(--radius-badge);
   font-size: 0.875rem;
   line-height: 1;
   font-weight: 600;
@@ -729,6 +732,22 @@ main {
   height: 24px;
 }
 
+.video__play:not(:disabled):active,
+.video__play.is-active {
+  border-color: var(--main-dark);
+  background: var(--surface);
+  color: var(--main-dark);
+}
+
+@media (hover: hover) {
+  .video__play:not(:disabled):hover,
+  .video__play.is-hover {
+    border-color: var(--main-dark);
+    background: var(--surface);
+    color: var(--main-dark);
+  }
+}
+
 .video__play:disabled {
   border-color: var(--disabled-text);
   color: var(--disabled-text);
@@ -995,6 +1014,12 @@ textarea.input {
   cursor: pointer;
 }
 
+@media (hover: hover) {
+  .details summary:hover {
+    color: var(--main-dark);
+  }
+}
+
 .details p {
   margin-top: var(--space-8);
 }
@@ -1011,8 +1036,14 @@ textarea.input {
   border-radius: var(--radius-field);
 }
 
+/* пустая область сообщения остаётся в дереве доступности, чтобы её текст объявлялся */
 .status:empty {
-  display: none;
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
 }
 
 .status--success {
@@ -1104,11 +1135,7 @@ textarea.input {
   }
 }
 
-/* R2: подпись кнопки не переносится, колонка кнопки по её ширине */
-.footer__vk .button {
-  white-space: nowrap;
-}
-
+/* R2: колонка кнопки по её ширине, подпись в одну строку */
 @media (min-width: 1280px) {
   .footer__cols {
     grid-template-columns: 3fr 3fr 4fr auto;
